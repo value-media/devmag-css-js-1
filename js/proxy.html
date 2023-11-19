@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            width: 100%;
+            height: 75vh;
+            display: grid;
+            place-content: center;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        #greet {
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        const greetings = new Proxy({}, {
+            get(target, prop) {
+                return `Hello ${prop}!`;
+            }
+        });
+        window.onload = () => {
+            document.querySelector('#greet')
+                .innerHTML =greetings.Tomek;            
+        }
+
+    </script>
+</head>
+<body>
+    Proxy <span id="greet"></span>
+</body>
+</html>
