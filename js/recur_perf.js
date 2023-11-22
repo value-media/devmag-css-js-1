@@ -17,6 +17,6 @@ function findBananBySet(arr) {
 }
 
 measurePerformance(findBanana, randomArr);
-measurePerformance(findBananBySet, randomArr);
 measurePerformance(findBananInSet, new Set(randomArr));
+measurePerformance(findBananBySet, randomArr);
 console.log('----------------------------------------------------------------------------------------------------------');
