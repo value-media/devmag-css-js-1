@@ -1,6 +1,6 @@
 import { measurePerformance } from './measurePerf.js'; 
 
-function fibonacciOriginalRecurrence(n) {
+function fibonacciOriginalRecurrence(n) { // najwolniesza
     if (n <= 2) return 1;
     return fibonacciOriginalRecurrence(n-1) + fibonacciOriginalRecurrence(n-2);
 }
@@ -12,7 +12,7 @@ function fibonacciMemoizedRecurrence(n, memo = {}) {
     return memo[n];
 }
 
-function fibonacciIterative(n) {
+function fibonacciIterative(n) { // najszybsza
     if (n <= 2) return 1;
     let prev2 = 0;
     let prev1 = 1;
