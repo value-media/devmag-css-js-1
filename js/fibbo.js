@@ -12,7 +12,7 @@ function fibonacciMemoizedRecurrence(n, memo = {}) {
     return memo[n];
 }
 
-function fibonacciIterative(n) { // najszybsza
+function fibonacciIterative(n) { // najszybsza dupa
     if (n <= 2) return 1;
     let prev2 = 0;
     let prev1 = 1;

@@ -8,4 +8,5 @@ export const measurePerformance = function (func, arg, label = '') {
     console.log('');
 }
 
-const numFormat = new Intl.NumberFormat("pl-PL", { minimumFractionDigits: 3 })
+// pokazuje trzy miejsca po przecinku
+const numFormat = new Intl.NumberFormat("pl-PL", { minimumFractionDigits: 3 });
