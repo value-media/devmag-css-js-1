@@ -1,0 +1,14 @@
+{
+    "presets": [
+      ["@babel/env", {
+        "targets": {
+          "node": "current"
+        }
+      }]
+    ],
+    "plugins": [
+      ["@babel/plugin-proposal-class-static-block"],
+      ["@babel/plugin-proposal-decorators", { "version": "2022-03" }]//,
+      // ["@babel/plugin-proposal-class-properties", { "loose": false }]
+    ]
+  }
