@@ -1,0 +1,70 @@
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+header {
+    border: blue solid 1px;
+    border-radius: 0.25em;
+    padding: 1em;
+    text-align: center;
+    font-weight: bold;
+}
+
+main {
+    padding: 1em;
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+}
+
+section {
+    border: gray solid 1px;
+    border-radius: 0.25em;
+    padding: 1em;
+}
+
+.message-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 100%;
+    max-width: 800px;
+    height: 70vh;
+    overflow-y: auto;
+}
+
+.message {
+    background-color: whitesmoke;
+    border: green solid 1px;
+    border-radius: 0.25em;
+    padding: 1em;
+}
+
+.actions-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 100%;
+    max-width: 200px;
+}
+
+.action-item {
+    padding: 1em;
+    background-color: whitesmoke;
+    border-radius: 0.25em;
+}
+
+.action-item button {
+    min-width: 100%;
+    border-color: gray;
+    background-color: dodgerblue;
+    color: white;
+    border-radius: 0.25em;
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+.action-item button:hover {
+    background-color: white;
+    color: blue;
+}
