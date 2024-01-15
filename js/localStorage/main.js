@@ -7,7 +7,7 @@ async function initItems() {
     await db64.create('purchase', ['list'])
     purchase = db64.use('purchase', 'list')    
     list = await purchase.get('today');
-    if (!list.length) {
+    if (!list?.length) {
         await purchase.set('today', ['marchewka', 'pietruszka','seler','jabłko']);
     }
 

@@ -43,7 +43,6 @@ header button:hover {
 
 .purchase {
     padding: 1em;
-    /* text-align: center; */
     background-color: whitesmoke;
     position: relative;
     transition: all 1s;
