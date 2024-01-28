@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libraries usage</title>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/pl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script>dayjs().locale('pl').format()</script>
+</head>
+<body>
+    <ul>
+        <li>
+            Days
+        </li>
+        <li>
+            Lodash
+        </li>
+    </ul>
+    
+    <script>
+        console.log('now', dayjs().format('YYYY-MM-DD HH:mm:ss'));
+     
+
+        // 1. Flatten the array
+        const flattenDeep = _.flattenDeep([ 1, [ 2, [ 3, [  4, [ 5 ]] ] ] ]) // [1, 2, 3, 4, 5]
+        console.log('lodash flattenDeep', flattenDeep);
+        // 2. More convenient object traversal
+        _.each({ name: 'fatfish', age: 100 }, (val, key) => {
+            console.log(val, key) 
+            // fatfish name
+            // 100 'age'
+        })        
+    </script>
+</body>
+</html>

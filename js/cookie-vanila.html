@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function setCookie({ key, value, expires, path, domain, secure }) {
+            let cookieString = key + "=" + encodeURIComponent(value);
+
+            if (expires) {
+                let expirationDate = new Date();
+                expirationDate.setTime(expirationDate.getTime() + expires * 24 * 60 * 60 * 1000);
+                cookieString += "; expires=" + expirationDate.toUTCString();
+            }
+            if (path) cookieString += "; path=" + path;
+            if (domain) cookieString += "; domain=" + domain;
+            if (secure) cookieString += "; secure";
+            document.cookie = cookieString;            
+        }
+
+        function getCookie(key) {
+            const match = document.cookie.match(new RegExp(`(^| )${key}=([^;]+)`));
+            return match && match[2];
+        }     
+
+        function saveName() {
+            const uName = document.querySelector('#user-name')?.value;
+            if (!uName) return;
+            setCookie({
+                key: 'user-name',
+                value: uName
+            });
+        }
+
+        window.onload = () => {
+            const uName = getCookie('user-name');
+            const input = document.querySelector('#user-name');
+            uName && input && (input.value = uName);
+        }
+    </script>
+    <style>
+        body {
+            display: grid;
+            place-content: center;
+            min-height: 50vh;
+        }
+        main {
+            border: 1px solid gainsboro;
+            border-radius: 0.25em;
+            padding: 1.5em;
+            background: whitesmoke;
+            box-shadow: 3px 2px 4px gainsboro;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <label for="user-name">Twoje imię:</label>
+        <input id="user-name" type="text" title="Imię" autofocus>
+        <button onclick="saveName()">Zapisz</button> 
+    </main>
+</body>
+</html>

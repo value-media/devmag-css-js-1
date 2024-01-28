@@ -4,11 +4,11 @@ const obj = {
     [s]: 'dupa',
     age: 42,
     name: 'Jasio',
-    [Symbol.toPrimitive](hint) {
-      if (hint === 'number') {
+    [Symbol.toPrimitive](primitiveType) {
+      if (primitiveType === 'number') {
         return this.age;
       }
-      if (hint === 'string') {
+      if (primitiveType === 'string') {
         return this.name;
       }
       return null;
@@ -25,3 +25,4 @@ for(const key in obj) {
   console.log(Number(obj)); 
   console.log(String(obj)); 
   console.log(Symbol.keyFor(s));
+  console.log(obj[s]);
