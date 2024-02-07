@@ -12,6 +12,17 @@ function fibonacciMemoizedRecurrence(n, memo = {}) {
     return memo[n];
 }
 
+const memoizedFibonacci2 = (function() {
+    const memo = {};
+
+    return function memoFibonacciWithClosure(n) {
+        if (n in memo) return memo[n];
+        if (n <= 2) return 1;
+        memo[n] = memoFibonacciWithClosure(n-1) + memoFibonacciWithClosure(n-2); 
+        return memo[n];
+    }
+})();
+
 function fibonacciIterative(n) { // najszybsza
     if (n <= 2) return 1;
     let prev2 = 0;
@@ -30,3 +41,5 @@ function fibonacciIterative(n) { // najszybsza
 measurePerformance(fibonacciOriginalRecurrence, 35);
 measurePerformance(fibonacciMemoizedRecurrence, 35);
 measurePerformance(fibonacciIterative, 35);
+measurePerformance(memoizedFibonacci2, 35);
+
