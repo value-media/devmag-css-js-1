@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        const worker = new Worker('worker.js');
+
+        window.addEventListener('message', event => { console.log('received',event) }, false);
+
+        worker.postMessage({ data: 'some data' });     
+        
+        // navigator.serviceWorker.register("worker.js");
+        // navigator.serviceWorker.ready.then((registration) => {
+        //     registration.active.postMessage(
+        //         "Test message sent immediately after creation",
+        //     );
+        // });        
+    </script>
+</head>
+<body>
+    worker
+</body>
+</html>

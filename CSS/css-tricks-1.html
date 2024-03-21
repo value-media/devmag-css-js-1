@@ -1,0 +1,199 @@
+<!-- 
+    https://medium.com/@creativebyte/100-lesser-known-css-tricks-the-ultimate-collection-675cf8b60031 
+   
+    dotąd: 35. attr() function for content
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        section {
+            --fg-color: whitesmoke;
+            --bg-color: rgb(82, 24, 230);
+            --font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: center;
+            gap: 1em;
+            padding: 1em;
+        }
+
+        section:focus-within {
+            box-shadow: gray 0 0 5px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            background-image: linear-gradient(to right, whitesmoke, dodgerblue);
+        }        
+
+        p {
+            border: 1px dimgray solid;
+            padding: 1em;
+            background-color: var(--bg-color);           
+            color: var(--fg-color);
+            font-family: var(--font-family);
+            hyphens: auto;
+        }
+
+        input:focus {
+            outline: 2px solid whitesmoke;
+            padding: 0.5em;
+            border-radius: 0.25em;
+        }
+
+        section:focus-within, section:focus-within p {
+            border-radius: 0.25em;
+        }
+
+        p:empty {
+            display: none;
+        }
+
+        .input-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1em;
+        }
+
+        body {
+            padding: 1em 3em;
+            scroll-snap-type: y mandatory;
+        }
+
+        body section {
+            scroll-snap-align: start;
+        }
+
+        ::selection {
+            background-color: #ffcc00;
+            color: #333;
+        }
+
+        ::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        .bigger-text {
+            font-size: clamp(1em, 1.2em, 1.1em);
+        }
+
+        /* for screen readers only  */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        ol {
+            counter-reset: item;
+        }
+
+        li {
+            counter-increment: item;
+            list-style: none;
+            margin: 0.5em;
+        }
+
+        li:hover {
+            cursor: pointer;
+        }
+
+        li::before {
+            display: inline-block;
+            background-color: #ffcc00;
+            content: counter(item) "";
+            margin-right: 1em;
+            color: var(--fg-color);
+            background-color: var(--bg-color);
+            border-radius: 0.75em;
+            padding: 0.5em;
+            opacity: 0.5;
+        }
+
+        li:hover::before {
+            opacity: 1;
+        }
+
+        :is(h1,h2) {
+            font-family: Verdana, sans-serif;
+            color: gainsboro;
+            -webkit-text-stroke: 2px dimgray;
+        }      
+
+        .menu {
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            border: dimgray solid 1px;
+            padding: 0.25em;
+            border-radius: 0.25em;
+        }
+
+        .menu:has(input:checked) {
+            outline: navy solid 2px;
+        }
+
+        .menu input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        
+        .menu .toggle + nav {
+            display: none;
+            position: absolute;
+            top: 2em;
+            left: 0;
+        }
+
+        .menu .toggle:checked + nav {
+            display: inline-block;
+            padding: 0.5em;
+            background-color: whitesmoke;
+            min-width: 20em;
+        }
+    </style>
+</head>
+<body>
+    <label class="menu">Menu
+        <input type="checkbox" class="toggle" title="menu-toggle">
+        <nav>Hamburger Menu Simulation</nav>
+    </label>
+    <h1>Strona z przykładami CSS</h1>
+    <h2>Sekcja #1</h2>
+    <section>
+        <p class="bigger-text">Paragraph 1</p>
+        <p>Paragraph 2</p>
+        <p>Paragraph 3</p>
+        <p></p>
+        <p class="bigger-text">Paragraph 4</p>
+        <p>Paragraph 5 (i trochę przydługi tekst, który jednak może mieścić w kafelku, ale raczej nie będzie się mieścił)</p>      
+
+        <div class="input-box">
+            <input type="text" title="text" placeholder="enter text..">
+            <input type="button" value="click">  
+        </div>
+
+        <div>
+            <ol>
+                <li>raz</li>
+                <li>dwa</li>
+                <li>trzy</li>
+            </ol>
+        </div>
+    </section>
+
+</body>
+</html>

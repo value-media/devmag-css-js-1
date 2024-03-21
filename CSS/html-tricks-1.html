@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Verdana, sans-serif;
+            display: grid;
+            place-content: center;
+            height: 50vh;
+            gap: 1em;
+        }
+
+        form {
+            padding: 1em;
+            border: 1px gray solid;
+            border-radius: 0.25em;
+            min-width: 12em;
+        }
+
+        form input {
+            max-width: 4em;
+            text-align: right;
+        }
+        
+        form .result:not(:empty) {
+            min-width: 4em;
+            border: 1px gray solid;
+            border-radius: 0.25em;
+            min-width: 12em;
+            padding: 0 1em;
+            background-color: whitesmoke;
+        }
+        section > div {
+            padding: 0 1em;
+            margin: 1em;
+        }
+    </style>
+</head>
+<body>
+    <form oninput="x.value=parseInt(a.value) * parseInt(b.value)" onsubmit="false">
+        <input type="number" id="a" value="0" title="a"> x 
+        <input type="number" id="b" value="0" title="b"> =
+        <output class="result" name="x" for="a b"></output>
+    </form>
+
+    <form method="get" onsubmit="return false">
+        <label for="drink">Select beverage from a list:</label>
+        <input id="drink" name="drink" list="drinks" >
+        <datalist id="drinks">
+            <option value="Milk"></option>
+            <option value="Water"></option>
+            <option value="Tea"></option>
+            <option value="Wine"></option>
+            <option value="Beer"></option>
+        </datalist>
+        <hr>
+        <input type="submit">
+    </form>
+</body>
+<section>
+    <div>
+        <label for="test">Test result: </label>
+        <meter min="0" max="100" value="87" low="50" high="95" optimum="85"></meter>
+    </div>
+    <div>
+        <div>Status: loading..</div>
+        <progress></progress>
+    </div>
+    <div>
+        <label for="range">Range: </label>
+        <input type="range" name="range" id="range" title="range">
+    </div>
+</section>
+</html>
