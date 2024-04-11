@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21 HTML tips</title>
+    <style>
+        body {
+            display: flex;
+            gap: 1rem;
+            flex-direction: column;
+        }
+        section {
+            padding: 1rem;
+            display: grid;
+            place-content: center;
+            border: solid gray 1px;
+            border-radius: 0.25rem;
+        }
+        form fieldset {
+            max-width: 20rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .blurred {
+            margin: 1.5rem;
+            filter: blur(5px);
+            opacity: 0.5;
+            scale: 0.5;
+            transition: all 1s;
+        }
+
+
+        .blurred:hover {
+            filter: blur(0);
+            outline: gray solid 0.5rem;
+            border-radius: 0.5rem;
+            scale: 1;
+            opacity: 1;
+            cursor: pointer;
+        }
+        .dynamic-content {
+            margin-top: 2rem;
+            position: relative;
+            min-width: 20rem;
+        }
+        .dynamic-content:hover::before { 
+            position: absolute;
+            top: -1.5rem;
+            color: dimgray;
+            font-style: italic;
+            content: attr(data-label);
+            width: 100%;
+        }
+        a[href$=".pdf"][download] {
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+        }
+
+        a[href$=".pdf"][download]:hover {
+            border-bottom: 1px solid blue;
+        }
+        a[href$=".pdf"][download]::after { 
+            content: " (PDF)";
+            color: dimgray;
+        }
+    </style>
+</head>
+<!-- https://blog.stackademic.com/21-html-tips-you-must-know-about-f771c05713c0 -->
+<body>
+    <section>
+        <!-- Email link -->
+        <a href="mailto:name@example.com"> Send Email </a>
+        <!-- Phone call link -->
+        <a href="tel:+1234567890"> Call Us </a>
+        <!-- SMS link -->
+        <a href="sms:+1234567890"> Send SMS </a>
+    </section>
+    <section>
+        <form>
+            <fieldset>
+                <legend>Personal details</legend>
+                
+                <label for="gender">Gender:</label>
+                <input type="text" id="gender" name="gender" maxlength="4" />
+                <label for="firstname">First name:</label>
+                <input type="text" id="firstname" name="firstname" />
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" />
+                <label for="contact">Contact:</label>
+                <input type="text" id="contact" name="contact" spellcheck="true" />
+                <input type="button" value="Submit" />
+            </fieldset>
+        </form>
+    </section>
+    <section>
+        <select title="select">
+            <optgroup label="Fruits">
+               <option>Apple</option>
+               <option>Banana</option>
+               <option>Mango</option>
+            </optgroup>
+            <optgroup label="Vegetables">
+               <option>Tomato</option>
+               <option>Broccoli</option>
+               <option>Carrot</option>
+            </optgroup>
+         </select>        
+    </section>
+    <section>
+        <input type="file" multiple title="input" accept="image/png" />
+        <select multiple title="select" #multiple>
+            <option value="xlsx">Excel</option>
+            <option value="image/png">PNG</option>
+            <option value="typescript">TypeScript</option>
+            <option value="rust">Rust</option>
+        </select>
+    </section>
+    <section>
+        <a href="document.pdf" download="document.pdf"> Download file </a>
+    </section>
+    <section>
+        <img class="blurred" src="mountains.png" alt="mountains"
+            width="400px" loading="lazy"
+        >
+    </section>
+    <section>
+        <div class="dynamic-content" data-label="etykieta elementu">
+            Dynamic content
+        </div>
+    </section>
+    <section>
+        <!-- Opens in the same frame -->
+        <a href="https://shefali.dev" target="_self">Open self</a>
+
+        <!-- Opens in a new window or tab -->
+        <a href="https://shefali.dev" target="_blank">Open blank</a>
+
+        <!-- Opens in the parent frame -->
+        <a href="https://shefali.dev" target="_parent">Open parent</a>
+
+        <!-- Opens in the full body of the window -->
+        <a href="https://shefali.dev" target="_top">Open top</a>
+
+        <!-- Opens in the named frame -->
+        <a href="https://shefali.dev" target="framename">Open frame</a>        
+    </section>
+</body>
+</html>
