@@ -1,9 +1,9 @@
-const symbol = Symbol.for('secret');
+const symbol = Symbol.for('secret key by Symbol');
 
 const obj = {
-    undef: undefined,
-    func: function() {},
-    symb: Symbol(),
+    undefined_value: undefined,
+    function_value: function() {},
+    symbol_value: Symbol(),
     [symbol]: 'secret content'
 };
 
@@ -12,6 +12,7 @@ Object.defineProperty(obj, 'non-enum', {
     value: 1,
     enumerable: false
 });
+
 Object.defineProperty(obj, 'is-enum', {
     value: { name: 'F' },
     enumerable: true
@@ -50,14 +51,44 @@ function listReflectOwnKeys(obj) {
     }
 }
 
-  console.log('obj', obj);
-  console.log('\nstrigify:', JSON.stringify(obj));
-  console.log('\nlistPropertiesInObject:');listPropertiesInObject(obj);
-  console.log('\nlistPropertiesByKeys:');listPropertiesByKeys(obj);
-  console.log('\nlistOwnPropertyNames:');listOwnPropertyNames(obj);
-  console.log('\nlistOwnPropertySymbols:');listOwnPropertySymbols(obj);
-  console.log('\nlistReflectOwnKeys:');listReflectOwnKeys(obj);
+function printVisibilityTable() {
+    const methods = [];
 
+    const obj1 = { method_name: 'in Object' };
+    for(const p in obj) { obj1[p] = 'visible'; }
+    methods.push(obj1);
 
+    const obj2 = { method_name: 'Object.keys' };
+    for(const p of Object.keys(obj)) { obj2[p] = 'visible'; }
+    methods.push(obj2);
+
+    const obj3 = { method_name: 'getOwnPropertyNames' };
+    for(const p of Object.getOwnPropertyNames(obj)) { obj3[p] = 'visible'; }
+    methods.push(obj3);
+
+    const obj4 = { method_name: 'getOwnPropertySymbols' };
+    for(const p of Object.getOwnPropertySymbols(obj)) { obj4[Symbol.keyFor(p)] = 'visible'; }
+    methods.push(obj4);
+
+    const obj5 = { method_name: 'Reflect.ownKeys' };
+    for(const p of Reflect.ownKeys(obj)) { 
+        const label = typeof p == 'symbol' ? Symbol.keyFor(p) : `${p}`;
+        obj5[label] = 'visible'; 
+    }
+    methods.push(obj5);
+    
+    console.log('\n Visibility of property in Object');
+    console.table(methods);
+}
+
+console.log('obj', obj);
+console.log('\nstrigify:', JSON.stringify(obj));
+console.log('\nlistPropertiesInObject:');listPropertiesInObject(obj);
+console.log('\nlistPropertiesByKeys:');listPropertiesByKeys(obj);
+console.log('\nlistOwnPropertyNames:');listOwnPropertyNames(obj);
+console.log('\nlistOwnPropertySymbols:');listOwnPropertySymbols(obj);
+console.log('\nlistReflectOwnKeys:');listReflectOwnKeys(obj);
+
+printVisibilityTable();
 
 
