@@ -1,0 +1,96 @@
+<!-- https://levelup.gitconnected.com/a-fresh-html-and-css-refresh-d9008d012cb5 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        main.post {
+            container-type: inline-size;
+            container-name: sidebar;
+        }
+
+        main.info {
+            container: message / inline-size;
+        }
+
+        main.details {
+            container-name: dtl;
+            --my-theme: dark;
+            color: white;
+            background-color: black;
+            padding: 1em;
+        }
+
+        main.details:hover {
+            --my-theme: light;
+        }
+
+        card h2 {
+            font-size: 1em;
+        }
+
+        @container sidebar (min-width: 600px) {
+            card h2 {
+                font-size: 2em;
+            }
+        }
+        
+        @container message (min-width: 600px) {
+            card h2 {
+                font-size: max(1.5em, 1.23em + 2cqi);
+                color: yellow;
+            }
+        }
+        
+        @container dtl style(--my-theme: light) {
+            p {                
+                color: blue;
+            }
+        }
+        
+        @container dtl style(--my-theme: dark) {
+            h2 {                
+                color: green;
+            }
+        }
+        
+        @container style(background-color: black) {
+            p {                
+                background-color: gainsboro;
+            }
+        }
+        
+        @container style(color: white) {
+            p {                
+                background-color: gainsboro;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="post">
+        <card>
+            <h2>Card title</h2>
+            <p>Card content</p>
+        </card>
+    </main>
+    <main class="info">
+        <card>
+            <h2>Card title</h2>
+            <p>Card content</p>
+        </card>
+    </main>
+    <main class="details">
+        <card>
+            <h2>Card title</h2>
+            <p>Card content</p>
+        </card>
+    </main>
+</body>
+</html>
