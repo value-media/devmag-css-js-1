@@ -51,8 +51,10 @@
   <script>
     window.onload = function() {
       for(let s of document.querySelectorAll('select')) {
-        s.addEventListener('focus', function() { this.size = 5; });
-        s.addEventListener('blur', function() { this.size = 1; });
+        // s.addEventListener('focus', function() { this.size = 5; });
+        // s.addEventListener('blur', function() { this.size = 1; });
+        s.addEventListener('mouseover', function() { this.size = 3; });
+        s.addEventListener('mouseout', function() { this.size = 1; });
       }
     };
   </script>
