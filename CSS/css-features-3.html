@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<!-- https://levelup.gitconnected.com/a-fresh-html-and-css-refresh-d9008d012cb5 -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            padding: 2em;
+        }
+        
+    </style>
+</head>
+<body>
+    <style>        
+        @counter-style emojis-std {
+            system: cyclic;
+            symbols: ⚪️;
+            suffix: ' ';
+        }
+
+        @counter-style emojis-focus {
+            system: cyclic;
+            symbols: 🔵;
+            suffix: ' ';
+        }
+
+        ul {       
+            margin-bottom: 2em;
+            padding: 2em 0;   
+            max-width: 20em;  
+            cursor: pointer;
+            border: gainsboro 1px solid;
+            border-radius: 0.75em;
+        }
+        
+        ul li {
+            list-style-type: emojis-std;
+            max-width: 20em; 
+            line-height: 2.5em;
+            opacity: 0.5;
+            transition: all 0.5s;
+            list-style-position: inside;
+            padding-left: 2em;
+        }
+
+        ul:has(> :hover) {
+            color: blue;
+        }
+
+        ul:has(> :hover) li:not(:hover, :has(+ :hover), :hover + *) {
+            color: gray;
+        }
+
+        ul:has(> :hover) li:hover {
+            list-style-type: emojis-focus;
+            opacity: 1;
+            scale: 1.1;
+            font-weight: bold;
+        }
+    </style>
+    <ul>
+        <li>Jeden</li>
+        <li>Dwa</li>
+        <li>Trzy</li>
+        <li>Cztery</li>
+        <li>Pięć</li>
+        <li>Sześć</li>
+    </ul>
+
+    <style>
+        .form {
+            padding: 1em;
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+        }
+
+        .form div {
+            width: 100%;
+        }
+
+        .form div label {
+            min-width: 50%;;
+        }
+
+        .form:has(input:invalid) {
+            border: red solid 1px;
+        }
+
+        .form:has(:valid) {
+            border: green solid 1px; 
+        }
+
+        .form:has(input:placeholder-shown) {
+            border: blueviolet;
+            outline: 2px solid blueviolet;
+        }
+
+        .form:has(:focus) {
+            border: gainsboro solid 1px;
+        }
+    </style> 
+    <div class="form" >
+        <div>
+            <label for="txt">Wpisz tekst: </label>
+            <input type="text" id="txt" required placeholder="musisz coś wpisać">            
+        </div>
+        <div>
+            <label for="txt_opt">Tutaj też wpisz: </label>
+            <input type="text" id="txt_opt" required>            
+        </div>
+
+    </div>
+
+    <style>
+        .nth-container {
+            margin: 2em;
+            max-width: 15em;
+            outline: solid 1em moccasin;
+            border-radius: 0.25em;
+            box-shadow: 1em 1.25em 1.25em 1em gainsboro;
+        }
+
+        .nth-container div {
+            padding: 0.5em 2em;
+            border-left: 3px double dimgray;
+            border-right: 3px double dimgray;
+        }
+
+        .nth-container div:nth-child(1) {
+            border-radius: 0.75em 0.75em 0 0;
+            border-top: 3px double dimgray;
+        }
+
+        .nth-container div:nth-child(4) {
+            font-weight: bold;
+        }
+
+        .nth-container div:nth-child(2n) {
+            border-bottom: yellow solid 1px;
+        }
+
+        .nth-container div:nth-child(2n + 1) {
+            border-bottom: gainsboro solid 1px;
+        }
+
+        .nth-container div:nth-last-child(1) {
+            border-radius: 0 0 0.75em 0.75em;
+            border-bottom: double 3px dimgray;
+        }
+
+        .nth-container div:nth-child(-n + 2 of .it) {
+            border-right: red 1em solid;
+        }
+
+        .nth-container div.blu:nth-child(-n + 2) {
+            border-left: blue 1em solid;
+            color: dimgray;
+        }
+
+    </style>
+    <div class="nth-container">
+        <div>2</div>
+        <div class="blu">1</div>
+        <div>2</div>
+        <div class="it">3</div>
+        <div class="blu">4</div>
+        <div class="it">5</div>
+        <div class="blu">6</div>
+        <div class="it">7</div>
+    </div>
+
+</body>
+</html>
