@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        .accent {
+            border: 1px blue solid;
+            padding: 1em;
+        }
+
+        .centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            border-radius: 0.5em;
+        }
+
+        .sidebar {
+            width: 10em;
+            /* position: fixed; */
+            left: 0;
+            top: 0;
+            height: 100dvh;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow-x: hidden;
+        }
+
+        .photo {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            width: 30%;
+            height: 70px;
+        }
+
+        .photo img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .clicked {
+            background-color: blue;
+            color: aliceblue;
+        }
+        
+        .clock {
+            position: fixed;
+            border: 1px dimgray solid;
+            padding: 0.5em;
+            top: 10px;
+            left: 50%;
+            min-height: 2em;
+            min-width: 10em;
+            transform: translate(-50%, 0);
+            text-align: center;
+        }
+
+        #result {
+            position: absolute;
+            top: 3em;
+            left: 20em;
+            max-width: 200px;
+        }
+
+        #result img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px; 
+        }
+
+        ::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background-color: #fafafa; 
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background: rgb(191, 191, 191); 
+        }
+        /* Modern scrollbar API */
+        body {
+            scrollbar-width: thin; 
+            scrollbar-color: #718096 #edf2f7; 
+        }        
+    </style>
+    <script>
+        let clickedEl, clockEl, timeStart;
+        
+        window.onload = function() {
+            clickedEl = document.querySelector('.centered');
+            clockEl = document.querySelector('.clock');
+
+            document.addEventListener("click", function(e) {
+                if (clickedEl.contains(e.target)) {
+                    (!clickedEl.classList.contains('clicked')) && clickedEl.classList.add('clicked');
+                    clickedEl.innerHTML = 'Zostałem aktywowany';
+                } else {
+                    (clickedEl.classList.contains('clicked')) && clickedEl.classList.remove('clicked');
+                    clickedEl.innerHTML = 'Jestem w środku';
+                }
+            }, { once: true });
+
+            timeStart = new Date();
+
+            setInterval(function() {
+                const now = new Date();
+                let time = ~~((now - timeStart) / 1000);
+                clockEl.textContent = formatSeconds(time);
+            }, 1000);
+
+            document.getElementById('uploaded-file').addEventListener("change", readImage);
+
+        }
+
+        const formatSeconds = (s) =>
+            [parseInt(s / 60 / 60), parseInt((s / 60) % 60), parseInt(s % 60)]
+            .join(':')
+            .replace(/\b(\d)\b/g, '0$1');
+
+        function readImage() {
+            const fileReader = new FileReader()
+            const file = document.getElementById('uploaded-file').files[0]
+
+            if (file) {
+                fileReader.readAsDataURL(file)
+            }
+        
+            fileReader.addEventListener(
+                'load',
+                () => {
+                    const result = fileReader.result
+                    const resultContainer = document.getElementById('result')
+                    resultContainer.innerHTML = '';
+                    const img = document.createElement('img')
+                    img.src = result
+                    resultContainer.append(img)
+                },
+                { once: true }
+            )
+        }        
+    </script>
+</head>
+<body>
+    <label for="uploaded-file">Załaduj plik</label>
+    <input type="file" name="uploaded-file" id="uploaded-file">
+
+    <div id="result"></div>
+
+    <nav class="sidebar accent">
+        jestem sobie menu z boku, i mogę mieć bardzo długi tekst w opisie
+    </nav>
+    <main class="centered accent">
+        Jestem w środku, kliknij..
+    </main>
+    <section class="photo">
+        <img src="https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg" alt="góry" >
+        <a href="https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg" download="obraz.jpg">Download</a>
+    </section>
+
+
+    <section class="clock"></section>
+</body>
+</html>

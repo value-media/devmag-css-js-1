@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: grid;
+            place-content: center;
+            gap: 10px;
+            min-height: 70vh;
+        }
+
+        .up {
+            border-bottom: 20px teal solid;
+            border-left: 20px transparent solid;
+            border-right: 20px transparent solid;
+            border-radius: 10px;
+        }
+
+        .down {
+            border-top: 20px teal solid;
+            border-left: 20px transparent solid;
+            border-right: 20px transparent solid;
+            border-radius: 10px;
+        }
+
+        .card {
+            width: 200px;
+            height: 130px;
+            border: 1px gray solid;
+            border-radius: 3px;
+            display: grid;
+            place-items: center;
+            mask: radial-gradient(12px at 40px 40px, transparent 18%, yellow) ;
+
+            
+            background-size: 80%, auto;
+            background-position: center;
+            background-repeat: no-repeat, repeat;
+            background-image: 
+                url('https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg'),
+                linear-gradient(to left, gainsboro, white);
+        }        
+    </style>
+</head>
+<body>
+    <div class="up"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="down"></div>
+</body>
+</html>
