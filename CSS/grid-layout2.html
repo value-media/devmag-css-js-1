@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .grid-container {
+            display: grid;
+            /* grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); */
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-auto-rows: minmax(40px, auto);
+            grid-auto-flow: dense;
+            gap: 16px;
+            height: 70vh;
+        }
+
+        .grid-item {
+            background-color: #fdcb6e;
+            padding: 20px;
+            text-align: center;
+        }   
+
+        .grid-item:first-child {
+            background-color: green;
+            grid-area: 1 / 1 / span 3 / span 2;
+        }     
+    </style>
+</head>
+<body>
+    <main class="grid-container">
+        <section class="grid-item">1</section>
+        <section class="grid-item">2</section>
+        <section class="grid-item">3</section>
+        <section class="grid-item">4</section>
+        <section class="grid-item">5</section>
+        <section class="grid-item">6</section>
+        <section class="grid-item">7</section>
+    </main>   
+</body>
+</html>

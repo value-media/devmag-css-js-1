@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dialog</title>
+
+    <style>
+        body {
+            display: grid;
+            place-content: center;
+            min-height: 65vh;
+        }
+
+        #show_dialog {
+            background-color: black;
+            color: gainsboro;
+            padding: 0.5em 2em;
+            border-radius: 1em;
+
+            &:hover {
+                color: white;
+                cursor: pointer;
+            }
+        }
+
+        output {
+            margin-top: 3em;
+        }
+
+        ::backdrop {
+            background-image: linear-gradient(
+                45deg,
+                whitesmoke,
+                deepskyblue,
+                dodgerblue,
+                gainsboro
+            );
+            opacity: 0.75;
+        }
+
+        dialog {
+            border-radius: 1em;
+            border-color: deepskyblue;
+        }
+    </style>    
+</head>
+<body>
+    <dialog id="dialog" >
+        <p>
+            Lightings strikes the earth 44 times every second!<br/>
+            Do you want more this kind of messages ?            
+        </p>
+        <form method="dialog">
+            <button type="submit" formmethod="dialog" value="dismiss">Cancel</button>  
+            <button type="submit" id="confirmBtn" value="interested" autofocus>OK</button>    
+        </form>
+    </dialog>
+    <button id="show_dialog">Show something interesting</button>
+    <output></output>
+    
+    <script>
+        const dialog = document.querySelector('#dialog');
+        const button = document.querySelector('#show_dialog');
+        const confirmBtn = dialog.querySelector("#confirmBtn");
+        const outputBox = document.querySelector("output");
+
+        button.addEventListener('click', () => {
+            dialog.showModal();
+        });
+
+        dialog.addEventListener("close", (e) => {
+            outputBox.value =
+                `Your response: ${dialog.returnValue}.`;
+        });
+
+        confirmBtn.addEventListener("click", (event) => {
+            // event.preventDefault(); 
+        });        
+    </script>
+</body>
+</html>

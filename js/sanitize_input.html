@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            min-height: 60dvh;
+            display: grid;
+            place-content: center;
+        }
+
+        #result {
+            border: 1px gainsboro solid;
+            border-radius: 0.5em;
+            margin: 1em;
+            padding: 1em;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js" integrity="sha512-jB0TkTBeQC9ZSkBqDhdmfTv1qdfbWpGE72yJ/01Srq6hEzZIz2xkz1e57p9ai7IeHMwEG7HpzG6NdptChif5Pg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        function valueChanged() {
+            const uInput = document.querySelector('#user-input')
+            console.log('valueChanged', uInput.value);
+
+            let value = uInput.value;
+            value = DOMPurify.sanitize(uInput.value);
+
+            const sResult = document.querySelector("#result");
+            sResult.innerHTML = value;
+        }
+    </script>
+</head>
+<body>
+    <header>        
+        <label for="user-input">Wpisz coś: </label>
+        <input autofocus id="user-input" type="text" onchange="valueChanged()" value="<img src=x onerror=alert(1)//>">
+    </header>
+    <main>
+        <section id="result">
+
+        </section>
+    </main>
+</body>
+</html>
