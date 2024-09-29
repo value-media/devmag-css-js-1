@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Socket Client</title>
+</head>
+<body>
+    <div id="connect-row">
+        <label for="nick">Twój pseudonim:</label>
+        <input type="text" name="nick" id="nick" autofocus onkeyup="nickKeyUp()">
+        <button id="btn-connect" onclick="connect()">Connect</button>
+    </div>  
+    <div id="chat"></div>
+    <div>
+        <button id="btn-clear" onclick="clearChat()">Clear</button>
+    </div>  
+    <div id="msg-row">
+        <label for="message">Wiadomość:</label>
+        <textarea name="message" id="message" onkeyup="messageKeyUp()"></textarea>
+        <div>
+            <button id="btn-message" onclick="sendMessage()">Send</button>
+        </div>        
+    </div>
+    <style>
+        body {
+            padding-top: 2em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1em;
+            font-family: sans-serif;
+            --column-width: 42em;
+        }
+
+        #connect-row {
+            width: var(--column-width);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 1em;
+
+            label {
+                color: gray;
+            }
+        }
+
+        #chat {
+            position: relative;
+            padding: 2em 1em;
+            width: 100%;
+            max-width: var(--column-width);
+            height: 14em;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            border: solid 1px gray;
+            border-radius: 0.25em;
+            outline: deepskyblue 1px solid;
+
+            &::before {
+                content: 'chat window';
+                font-size: small;
+                color: gray;
+                position: absolute;
+                left: 0.5em;
+                top: 0.5em;
+            }
+        }
+
+        #chat + div {
+            width: var(--column-width);
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        #msg-row {
+            label, textarea {
+                display: block;
+                min-width: 40em;
+                margin-bottom: 1em;
+            }
+
+            label {
+                color: dimgray;
+            }
+
+            textarea {
+                height: 3em;
+            }
+        }
+
+        button {
+            color: white;
+            font-weight: bold;
+            padding: 0.5em 2em;
+            border-radius: 1em;
+            background-color: deepskyblue;
+            border: gainsboro 1px solid;
+
+            &:hover {
+                background-color: #222;
+                cursor: pointer;
+                outline: gainsboro 1px solid;
+            }            
+        }
+    </style>
+    <script>
+        const chatSpot = document.querySelector('#chat');
+        let socket;
+
+        function connect() {
+            clearChat();
+            const nick = document.querySelector('#nick').value;
+            if (!nick) {
+                writeMessage('Enter your nick first..');
+                return;
+            }
+
+            if (socket) {
+                socket.close();
+            }
+
+            // const url = `ws://localhost:7100/ws?name=${nick}`;
+            const url = `wss://localhost:7087/chat`;
+            socket = new WebSocket(url);
+
+            socket.onopen = function() {
+                const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1MSIsInVuaXF1ZV9uYW1lIjoidC5kb21pbmlhayIsImVtYWlsIjoidG9tYXN6LmRvbWluaWFrQGdyb3Vwb25lLmNvbS5wbCIsImdpdmVuX25hbWUiOiJUb21hc3ogRG9taW5pYWsiLCJqdGkiOiI0Y2FlMWY5Ni1jOTRjLTQ1ZDgtYjVlYi01NDFhODRmMTQ3ZmQiLCJzdWIiOiJzZXNzaW9uVG9rZW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiIxLDIsNCwwIiwiZXhwIjoxODkzNDUyNDAwLCJpc3MiOiJncm91cG9uZS5wbCIsImF1ZCI6Imdyb3Vwb25lLnBsIn0.jUi6EyJaKBeF5aDmrT6HSfoeOxN9Q4XqrY5eVV48AtQ';
+                writeMessage(`WebSocket is open now.`);
+                socket.send(`mynameis|${nick}`);
+                socket.send(`mytokenis|${token}`);
+            };
+            
+            socket.onmessage = function(event) {
+                writeMessage(`${event.data}`);
+            };
+
+            socket.onclose = function() {
+                writeMessage(`WebSocket is closed now.`);
+            };
+
+        }
+
+        function writeMessage(message) {
+            const post = document.createElement('div');
+            const now = new Date();
+            const timeInfo = `${now.getHours()}`.padStart(2, '0') + ':' +
+                `${now.getMinutes()}`.padStart(2, '0') + ':' +
+                `${now.getSeconds()}`.padStart(2, '0');
+            post.innerText = `${timeInfo} - ${message}`;
+            chatSpot.appendChild(post);
+        }
+
+        function clearChat() { 
+            chatSpot.innerHTML = '';
+        }
+
+        function sendMessage() {
+            if (!socket) {
+                writeMessage('You are not connected..');
+                return;
+            }
+            const message = document.querySelector('#message');
+            socket.send(message.value);
+            message.value = '';
+        }
+    
+        function messageKeyUp() {
+            if (window.event.key == 'Enter') {
+                sendMessage();
+            }
+        }
+        
+        function nickKeyUp() {
+            if (window.event.key == 'Enter') {
+                connect();
+            }
+        }
+    </script>
+</body>
+</html>
