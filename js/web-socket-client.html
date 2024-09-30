@@ -11,8 +11,13 @@
         <input type="text" name="nick" id="nick" autofocus onkeyup="nickKeyUp()">
         <button id="btn-connect" onclick="connect()">Connect</button>
     </div>  
-    <div id="chat"></div>
-    <div>
+    <main id="chat-area">
+        <div id="chat"></div>
+        <div id="chat-users"></div>
+        <button title="odśwież listę użytkowników" onclick="refreshUsers()">🔄</button>
+    </main>
+    
+    <div id="bottom-row">
         <button id="btn-clear" onclick="clearChat()">Clear</button>
     </div>  
     <div id="msg-row">
@@ -30,13 +35,13 @@
             align-items: center;
             gap: 1em;
             font-family: sans-serif;
-            --column-width: 42em;
+            --column-width: 52em;
         }
 
         #connect-row {
             width: var(--column-width);
             display: flex;
-            justify-content: flex-end;
+            justify-content: flex-start;
             align-items: center;
             gap: 1em;
 
@@ -45,17 +50,36 @@
             }
         }
 
+        #chat-area {
+            display: flex;
+            width: var(--column-width);
+            position: relative;
+
+            button {
+                position: absolute;
+                top: 0.5em;
+                right: 0.5em;
+                padding: 0;
+                background-color: transparent;
+                border: none;
+
+                &:hover {
+                    scale: 1.2;
+                }
+            }
+        }
+
         #chat {
             position: relative;
             padding: 2em 1em;
-            width: 100%;
-            max-width: var(--column-width);
+            width: calc(var(--column-width) - 16em);
             height: 14em;
             overflow-x: hidden;
             overflow-y: scroll;
-            border: solid 1px gray;
+            border: solid 2px gray;
+            border-radius: 0.5em;
             border-radius: 0.25em;
-            outline: deepskyblue 1px solid;
+            margin-right: 0.75em;
 
             &::before {
                 content: 'chat window';
@@ -67,16 +91,36 @@
             }
         }
 
-        #chat + div {
-            width: var(--column-width);
+        #chat-users {
+            padding: 2em 1em;
+            border: 1px gray solid;
+            border-radius: 0.5em;
+            width: 15em;
             display: flex;
-            justify-content: flex-end;
+            flex-direction: column;
+            gap: 0.25em;
+            background-color: whitesmoke;
+            position: relative;
+            color: dimgray;
+
+            &::before {
+                content: 'chat users';
+                font-size: small;
+                position: absolute;
+                top: 0.25em;
+                left: 0.5em;
+            }
+        }
+
+        #bottom-row {
+            width: var(--column-width);
         }
 
         #msg-row {
+            
             label, textarea {
                 display: block;
-                min-width: 40em;
+                width: var(--column-width);
                 margin-bottom: 1em;
             }
 
@@ -106,7 +150,12 @@
     </style>
     <script>
         const chatSpot = document.querySelector('#chat');
+        const chatUsers = document.querySelector('#chat-users');
         let socket;
+
+        function refreshUsers() {
+            socket.send(`get|roster`);
+        }
 
         function connect() {
             clearChat();
@@ -120,20 +169,28 @@
                 socket.close();
             }
 
-            // const url = `ws://localhost:7100/ws?name=${nick}`;
-            // const url = `wss://localhost:7087/chat`;
+            // const url = 'https://localhost:7190/chat';
             const url = 'https://onetool-api.groupone.pl/chat';
             socket = new WebSocket(url);
 
             socket.onopen = function() {
-                const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1MSIsInVuaXF1ZV9uYW1lIjoidC5kb21pbmlhayIsImVtYWlsIjoidG9tYXN6LmRvbWluaWFrQGdyb3Vwb25lLmNvbS5wbCIsImdpdmVuX25hbWUiOiJUb21hc3ogRG9taW5pYWsiLCJqdGkiOiI0Y2FlMWY5Ni1jOTRjLTQ1ZDgtYjVlYi01NDFhODRmMTQ3ZmQiLCJzdWIiOiJzZXNzaW9uVG9rZW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiIxLDIsNCwwIiwiZXhwIjoxODkzNDUyNDAwLCJpc3MiOiJncm91cG9uZS5wbCIsImF1ZCI6Imdyb3Vwb25lLnBsIn0.jUi6EyJaKBeF5aDmrT6HSfoeOxN9Q4XqrY5eVV48AtQ';
                 writeMessage(`WebSocket is open now.`);
-                socket.send(`mynameis|${nick}`);
-                socket.send(`mytokenis|${token}`);
+                socket.send(`name|${nick}`);
+                socket.send(`get|roster`);
+                setInterval(() => socket.send(`get|roster`), 5000);
+                // const token = '';
+                // socket.send(`token|${token}`);
             };
             
             socket.onmessage = function(event) {
-                writeMessage(`${event.data}`);
+                const msgSegments = event.data.split('|');
+                if (msgSegments.length > 1) {
+                    if (msgSegments[0] == 'roster') {
+                        resetUsers(msgSegments[1]);
+                    }
+                } else {
+                    writeMessage(`${event.data}`);
+                }                
             };
 
             socket.onclose = function() {
@@ -150,6 +207,16 @@
                 `${now.getSeconds()}`.padStart(2, '0');
             post.innerText = `${timeInfo} - ${message}`;
             chatSpot.appendChild(post);
+        }
+
+        function resetUsers(message) {
+            chatUsers.innerHTML = '';
+            const users = message.split(/[\n\r;]+/g).filter(Boolean);
+            for(const uLine of users) {
+                const uDiv = document.createElement('div');
+                uDiv.innerText = uLine;
+                chatUsers.appendChild(uDiv);
+            }
         }
 
         function clearChat() { 
