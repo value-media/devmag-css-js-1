@@ -121,7 +121,8 @@
             }
 
             // const url = `ws://localhost:7100/ws?name=${nick}`;
-            const url = `wss://localhost:7087/chat`;
+            // const url = `wss://localhost:7087/chat`;
+            const url = 'https://onetool-api.groupone.pl/chat';
             socket = new WebSocket(url);
 
             socket.onopen = function() {
