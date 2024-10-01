@@ -226,6 +226,7 @@
                 post.innerText = `${timeInfo} - ${message}`;
             }            
             chatSpot.appendChild(post);
+            chatSpot.scrollTo(0, chatSpot.scrollHeight);
         }
 
         function resetUsers(message) {
