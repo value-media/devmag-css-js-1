@@ -71,6 +71,7 @@
 
         #chat {
             position: relative;
+            color: dimgray;
             padding: 2em 1em;
             width: calc(var(--column-width) - 16em);
             height: 14em;
@@ -88,6 +89,14 @@
                 position: absolute;
                 left: 0.5em;
                 top: 0.5em;
+            }
+
+            .message-content {
+                color: navy;
+                border: 1px solid gray;
+                padding: 1em;
+                border-radius: 0.5em;
+                margin-bottom: 1em;
             }
         }
 
@@ -205,7 +214,17 @@
             const timeInfo = `${now.getHours()}`.padStart(2, '0') + ':' +
                 `${now.getMinutes()}`.padStart(2, '0') + ':' +
                 `${now.getSeconds()}`.padStart(2, '0');
-            post.innerText = `${timeInfo} - ${message}`;
+            segments = message.split(':');
+            if (segments.length > 1) {
+                const nick = segments.shift();
+                post.innerHTML = `${timeInfo}: ${nick}`;
+                const msgDiv = document.createElement('div');
+                msgDiv.classList.add('message-content')
+                msgDiv.innerText = segments.join(':');
+                post.appendChild(msgDiv);                
+            } else {
+                post.innerText = `${timeInfo} - ${message}`;
+            }            
             chatSpot.appendChild(post);
         }
 
