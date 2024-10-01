@@ -14,12 +14,13 @@
     <main id="chat-area">
         <div id="chat"></div>
         <div id="chat-users"></div>
-        <button title="odśwież listę użytkowników" onclick="refreshUsers()">🔄</button>
+        <button id="reset-users" title="odśwież listę użytkowników" onclick="refreshUsers()">🔄</button>
+        <button id="clear-window" title="wyczyść okno czatu" onclick="clearChat()">⚪</button>
     </main>
     
-    <div id="bottom-row">
-        <button id="btn-clear" onclick="clearChat()">Clear</button>
-    </div>  
+    <!-- <div id="bottom-row">
+        <button id="btn-clear" onclick="()">Clear</button>
+    </div>   -->
     <div id="msg-row">
         <label for="message">Wiadomość:</label>
         <textarea name="message" id="message" onkeyup="messageKeyUp()"></textarea>
@@ -55,17 +56,26 @@
             width: var(--column-width);
             position: relative;
 
-            button {
+            #reset-users {
                 position: absolute;
                 top: 0.5em;
                 right: 0.5em;
                 padding: 0;
                 background-color: transparent;
                 border: none;
+            }
 
-                &:hover {
-                    scale: 1.2;
-                }
+            #clear-window {
+                position: absolute;
+                top: 0.5em;
+                left: 0.5em;
+                padding: 0;
+                background-color: transparent;
+                border: none;
+            }
+
+            button:hover {
+                scale: 1.2;
             }
         }
 
@@ -87,16 +97,33 @@
                 font-size: small;
                 color: gray;
                 position: absolute;
-                left: 0.5em;
+                left: 2.5em;
                 top: 0.5em;
+            }
+
+            .post {
+                margin-block: 0.75em;
+            }
+
+            .message-header {
+                display: flex;
+                justify-content: space-between;
+                padding-inline: 10px;
+
+                .post-user {                    
+                    color: #222;
+                }
+                .post-time {
+                    font-size: small;
+                }
             }
 
             .message-content {
                 color: navy;
                 border: 1px solid gray;
-                padding: 1em;
+                padding: 0.5em;
                 border-radius: 0.5em;
-                margin-bottom: 1em;
+                text-align: left;
             }
         }
 
@@ -119,10 +146,6 @@
                 top: 0.25em;
                 left: 0.5em;
             }
-        }
-
-        #bottom-row {
-            width: var(--column-width);
         }
 
         #msg-row {
@@ -178,7 +201,6 @@
                 socket.close();
             }
 
-            // const url = 'https://localhost:7190/chat';
             const url = 'https://onetool-api.groupone.pl/chat';
             socket = new WebSocket(url);
 
@@ -210,6 +232,7 @@
 
         function writeMessage(message) {
             const post = document.createElement('div');
+            post.classList.add('post');
             const now = new Date();
             const timeInfo = `${now.getHours()}`.padStart(2, '0') + ':' +
                 `${now.getMinutes()}`.padStart(2, '0') + ':' +
@@ -217,9 +240,13 @@
             segments = message.split(':');
             if (segments.length > 1) {
                 const nick = segments.shift();
-                post.innerHTML = `${timeInfo}: ${nick}`;
+                const hdrDiv = document.createElement('div');
+                hdrDiv.classList.add('message-header');
+                hdrDiv.innerHTML = `<div class="post-user">${nick}</div> <div class="post-time">${timeInfo}</div>`;
+                post.appendChild(hdrDiv);
+                
                 const msgDiv = document.createElement('div');
-                msgDiv.classList.add('message-content')
+                msgDiv.classList.add('message-content');
                 msgDiv.innerText = segments.join(':');
                 post.appendChild(msgDiv);                
             } else {
