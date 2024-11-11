@@ -1,0 +1,148 @@
+<!-- https://javascript.plainenglish.io/12-front-end-tips-commonly-used-in-work-92c52faac99d -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <meta http-equiv="refresh" content="10">
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: large;
+            padding: 2em;
+            display: grid;
+            gap: 2em;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        body {
+            &::-webkit-scrollbar {
+                background-color: gainsboro     ;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: white;
+                border-radius: 5px;
+                border: 1px gray solid;
+            }
+
+            &::-webkit-scrollbar-button {
+                background-color: whitesmoke;
+                fill: blue;
+            }
+        }
+
+        .triangle {
+            height: 0;
+            width: 0;
+            border: 20px solid transparent;
+            border-right-color: gray;
+        }
+
+        bow {
+            height: 0;
+            width: 0;
+            background-color: transparent;
+            border: 20px solid transparent;
+            border-right-color: gainsboro;
+            border-left-color: skyblue;
+            padding-block: 5px;
+            outline: 3px solid gainsboro;
+            filter:blur(1px);
+        }
+
+        .centered {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            background-color: gainsboro;
+        }
+
+        .ellipsed {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 15em;            
+        }
+
+        .m-ellipsed {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            overflow: hidden; 
+            width: 15em;                    
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="triangle"></div>
+    <bow></bow>
+    <div class="centered"></div>
+    <div class="ellipsed">To jest tekst, który nie wyświetla się w całości!</div>
+    <div class="m-ellipsed">
+        To jest tekst, który nie wyświetla się w całości!
+        To jest tekst, który nie wyświetla się w całości!
+        To jest tekst, który nie wyświetla się w całości!
+    </div>
+    
+    <div>Lelum polelum..</div>
+    <div>Lelum polelum..</div>
+
+    <input type="text" inputmode="verbatim" placeholder="verbatim">
+    <input type="text" inputmode="latin" placeholder="latin">
+    <input type="text" inputmode="numeric" placeholder="only numbers">
+
+    <input list="browsers" name="browser" placeholder="datalist">
+    <datalist id="browsers">
+      <option value="Chrome">
+      <option value="Firefox">
+      <option value="Safari">
+    </datalist>
+
+    <div id="employee-list"></div>
+    <template id="card-template">
+        <div class="card">
+            <img src="" alt="Image" class="card-img" width="32px">
+            <div class="card-text"></>
+        </div>
+    </template>
+    <style>
+        #employee-list {
+            padding: 1em;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1em;
+        }
+
+        .card {
+            display: flex;
+            align-items: center;
+            gap: 2em;
+            min-width: 20em;
+            padding: 1em;
+            border: 1px gray solid;
+            border-radius: 1em;
+        }
+    </style>    
+    <script>
+        const empList = document.getElementById('employee-list');
+        const template = document.getElementById('card-template');
+        for(let i = 1; i <= 10; i++) {
+            const clone = template.content.cloneNode(true);
+            clone.querySelector('.card-img').src = 'man.svg';
+            clone.querySelector('.card-text').textContent = `Employee #${i} (${new Date().toTimeString().substring(0,8)})`;
+            empList.appendChild(clone);            
+        }
+
+    </script>
+</body>
+</html>
