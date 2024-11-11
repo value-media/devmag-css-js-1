@@ -1,0 +1,147 @@
+<!-- https://levelup.gitconnected.com/lesser-known-css-features-that-you-should-learn-now-bebc4154e817 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+            grid-gap: 1em;
+            justify-self: center;
+
+            > div {
+                background: #ddd;
+                color: gray;
+                padding: calc(2vw + 0.5em);
+                font-size: calc(1vw + 1em); 
+                font-weight: bold;
+                text-align: center;
+                border-radius: 0.5em;
+            }
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            gap: 2em;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="container">
+            <div>Block 1</div>
+            <div>Block 2</div>
+            <div>Block 3</div>
+            <div>Block 4</div>
+        </div>        
+    </section>
+    <section class="rounded-width" >
+        <style>
+            :root {
+                --width: 220px;
+            }
+            .rounded-width {
+                padding: 1em;
+                background-color: whitesmoke;
+            }
+            .progress-bar {
+                background: #aaa;
+                width: round(var(--width), 25px);
+                height: 2em;  
+                margin: 1em;              
+            }
+        </style>
+        <script>
+            function step() {
+                const el = document.querySelector(':root');
+                let width = +getComputedStyle(el).getPropertyValue('--width').replace(/[^\d]/g, '') + 20;
+                console.log('step1 ', width)
+                el.style.setProperty('--width', width + 'px');
+                
+                width = +getComputedStyle(el).getPropertyValue('--width').replace(/[^\d]/g, '')
+                console.log('step2 ', width)
+            }
+        </script>
+        <div id="bar" class="progress-bar"></div>
+        <button onclick="step()" >dodaj krok</button>
+    </section>
+    <section>
+        <style>
+            :root { counter-reset: linki }
+            a[href]:empty { text-decoration: none }
+          
+            a[href]:empty::after {
+              counter-increment: linki;
+              content: '(' counter(linki) ')';
+            }
+        </style>
+          
+        <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in 
+        eleifend dolor <a href="https://example.com/link1" title="link"></a>. Integer mauris 
+        eros, posuere vitae ex feugiat, pretium ultrices 
+        ex <a href="https://example.com/link2" title="link"></a>. Nulla et nibh feugiat, 
+        pharetra ipsum vel, accumsan augue 
+        <a href="https://example.com/link3" title="link"></a>.
+        </p>        
+    </section>
+    <section>
+        <style>
+            @counter-style modified-alpha {
+              system: extends alpha;
+              prefix: "[ ";
+              suffix: " ] ";
+              pad: 2 "0";
+            }
+            
+            ol { list-style-type: modified-alpha }
+          </style>
+          
+          <ol>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>TypeScript</li>
+            <li>Bootstrap</li>
+          </ol>        
+    </section>
+    <section class="balls">
+        <style>
+            @property --t {
+                syntax: "<number>";
+                initial-value: 0;
+                inherits: true;
+            }
+
+            @keyframes tick {
+                from { --t: 0 }
+                to   { --t: 100000 }
+            }
+
+            :root { animation: tick 86400s linear infinite }
+          
+            .balls div > div {
+              background: #555;
+              width: 2em;
+              height: 2em;
+              margin-top: 2em;
+              border-radius: 50%;
+            }
+            
+            .balls div > div:first-child { translate: calc(sin(var(--t)) * 200px + 200px) }
+            .balls div > div:last-child { translate: calc(cos(var(--t)) * 200px + 200px) }
+          
+          </style>
+          
+          <div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>        
+    </section>
+</body>
+</html>

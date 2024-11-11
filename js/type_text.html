@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Type generator</title>
+    <script>
+        const textId = '#text div';
+        function* typeGenerator(text) {
+            for(const l of text) { yield l; }
+        }
+
+        function typeText(elementId, text) {
+            const el = document.querySelector(elementId);
+            if (!el) return;
+            el.innerHTML = '&nbsp;';
+            el.classList.remove('finished-typing');
+            el.parentElement.classList.add('typing');
+            const gen = typeGenerator(text);
+            const intId = setInterval(() => {
+                const next = gen.next();
+                next.done ? (clearInterval(intId), el.classList.add('finished-typing'), el.innerHTML += '&nbsp;') :
+                    (el.innerHTML += next.value.replace(/./g, (l) => ({ ' ': ' '})[l] ?? l.toUpperCase()));
+            }, 250);             
+        }
+
+        window.onload = (e) => {
+            setTimeout(typeText, 1000, textId, 'Hello world!');
+        } 
+        
+        function keyPressed(e) {
+            if (e.key == 'Enter' || e.keyCode == 13) {
+                typeText(textId, e.target.value);
+            }
+        }
+    </script>
+    <style>
+        body {
+            padding: 1em;
+            display: grid;
+            place-content: center;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 50vh;
+        }
+
+        #text {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            border: 1px slateblue solid;
+            padding: 1em;
+            border-radius: 0.25em;
+            max-width: 90vw;
+            transition: all 1s;
+        }
+
+        #text:has(.finished-typing) {
+            padding: 1.5em 1em;
+        }
+
+        #text div {
+            display: inline-block;
+            font-weight: bold;
+            color: whitesmoke;
+            font-size: larger;
+            min-width: 20em;
+            text-align: center;
+            white-space: break-space;
+        }
+
+        .typing {
+            color: gainsboro;
+            background-color: mediumblue;
+        }
+
+        .finished-typing {
+            text-decoration: underline;
+            color: yellow !important;
+            font-size: xx-large !important;
+            min-width: auto !important;
+            padding: 0 2em;
+        }
+
+        .float-box {
+            position: absolute;
+            top: 1em;
+            left: 1em;
+        }
+
+        .float-box input {
+            padding: 0.5em;
+            min-width: 25em;
+        }
+    </style>
+</head>
+<body>
+    <div class="float-box">
+        <input type="text" title="enter text and press Enter" placeholder="enter new text to type" onkeypress="keyPressed(event)" >
+    </div>
+    <div id="text">Text:  <div>&nbsp;</div> </div>
+</body>
+</html>

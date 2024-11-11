@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specificity practise</title>
+    <style>
+        .main {
+            color: red;
+        }
+
+        #main {
+            color: yellow !important;
+        }
+
+        main, main, main, main {
+            color: white;
+        }
+
+        main {
+            color: lime;
+        }
+    </style>
+</head>
+<body>
+    <main id="main" class="main" style="color: blue;">
+        Main
+    </main>
+</body>
+</html>

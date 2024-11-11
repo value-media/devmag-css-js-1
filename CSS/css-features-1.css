@@ -1,0 +1,71 @@
+body {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+    background-color: antiquewhite;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.figure {
+    padding: 1em;
+    background-color: antiquewhite;
+}
+
+.figure:has(img) {
+    background-color: white;
+}
+
+form {
+    padding: 1em;
+    background-color: white;
+    border-radius: 0.25em;
+}
+
+form:has(input:invalid):focus-within {
+    border: red 2px solid;
+}
+
+form:not(:has(input:invalid)):focus-within {
+    border: green 2px solid;
+}
+
+.layered {
+    padding: 1em;
+    background-color: white;
+}
+
+.layered p {
+    font-size: 0.75em;
+}
+
+@layer ver2, ver1;
+
+@layer ver1 {
+    .layered p {
+        font-size: 2em;
+        color: blue;
+    }    
+}
+
+@layer ver2 {
+    .layered p {
+        font-size: 2em;
+        color: green;
+    }    
+}
+
+.magnified {
+    scale: 1;
+    transition: all 0.5s;
+}
+
+.magnified:where(:focus,:hover) {
+    scale: 1.2;
+    border: 1px dimgray solid;
+    border-radius: 0.25em;
+    padding: 1em;
+    cursor: pointer;
+}
+

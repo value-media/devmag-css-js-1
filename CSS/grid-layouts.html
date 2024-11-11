@@ -1,0 +1,163 @@
+<!-- https://medium.com/@asierr/10-css-grid-layout-tricks-that-will-transform-your-designs-a5a77b99a435 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .grid-container1 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;        
+            min-height: 40dvh;    
+        
+            .grid-item {
+                background-color: #ccc;
+                padding: 20px;
+                text-align: center;
+            }
+        }
+
+        .grid-container2 {
+            margin-top: 2em;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 16px;
+        
+            .grid-item {
+                background-color: #f0f0f0;
+                padding: 20px;
+                text-align: center;
+            }
+        }
+
+        .grid-container3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            justify-items: center;
+            align-items: center;
+            height: 300px;
+    
+            .grid-item {
+                background-color: #ff6f61;
+                padding: 20px;
+                color: white;
+            }  
+        }      
+
+        .grid-container4 {
+            display: grid;
+            min-height: calc(100vh - 1em);
+            grid-template-areas:
+                "header header"
+                "sidebar main"
+                "footer footer";
+            grid-template-columns: 1fr 3fr;
+            grid-template-rows: auto 1fr auto;
+            gap: 16px;
+
+            .header { grid-area: header; background-color: #ff6f61; }
+            .sidebar { grid-area: sidebar; background-color: #ff9f43; }
+            .main { grid-area: main; background-color: #feca57; }
+            .footer { grid-area: footer; background-color: #48dbfb; }             
+        }
+       
+        .grid-container5 {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 16px;
+            padding: 16px;
+            min-height: 40vh;
+
+            .nested-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+
+            .grid-item {
+                background-color: #f0f0f0;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .nested-item {
+                background-color: beige;
+                padding: 20px;
+                text-align: center;
+            }
+        }
+
+        .grid-container6 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 16px;
+            min-height: 70vh;
+
+            .grid-item {
+                background-color: #0984e3;
+                padding: 20px;
+                text-align: center;
+            }
+        }        
+    </style>
+</head>
+<body>
+    <div class="grid-container1">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+    </div>
+    <div class="grid-container2">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+    </div>
+    <div class="grid-container3">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+    </div>
+    <div class="grid-container4">
+        <div class="header">header 1</div>
+        <div class="sidebar">sidebar</div>
+        <div class="main">main</div>
+        <div class="footer">footer</div>
+    </div>
+    <div class="grid-container5">
+        <div class="nested-grid">
+            <div class="nested-item">1</div>
+            <div class="nested-item">2</div>
+            <div class="nested-item">3</div>
+            <div class="nested-item">4</div>
+            <div class="nested-item">5</div>
+            <div class="nested-item">6</div>            
+        </div>
+
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+    </div>
+    <div class="grid-container6">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+    </div>
+</body>
+</html>

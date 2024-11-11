@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Files</title>
+    <link href="styles.css" rel="stylesheet" />
+    <script type="application/javascript">        
+        function printMessage(message) {
+            const panel = document.getElementById('message-panel');
+            if (!panel) {
+                console.error('nie znaleziono panelu wiadomości..');
+                return;
+            }
+            const el = document.createElement('div');
+            el.classList.add('message');
+            const txt = document.createTextNode(message);
+            el.append(txt);
+            panel.append(el);
+        }
+
+        function registerAction(action) {
+            const { name, fn } = action;
+            const panel = document.getElementById('actions-panel');
+            if (!panel) {
+                console.error('nie znaleziono panelu akcji..');
+                return;
+            }
+            const el = document.createElement('div');
+            el.classList.add('action-item');
+            const btn = document.createElement('button');
+            btn.textContent = name;
+            fn && btn.addEventListener('click', fn);
+
+            el.append(btn);
+            panel.append(el);
+        }
+    </script>
+    <script type="text/javascript" src="main.js" ></script>
+</head>
+<body>
+    <header>Dynamiczne ładowanie kodu Javascript.</header>
+    <main>
+        <section id="message-panel" class="message-panel">
+        </section>
+        <section id="actions-panel" class="actions-panel">
+        </section>        
+    </main>
+</body>
+</html>

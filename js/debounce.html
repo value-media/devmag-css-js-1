@@ -1,0 +1,58 @@
+<!-- https://medium.com/@regondaakhil/10-critical-javascript-mistakes-experienced-developers-still-make-1518a02289d1 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let n = 0;
+        function debounce(fn, delay) {
+            let timeout;
+            return function(...args) {
+                n++;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => fn.apply(this, [...args, n]), delay);
+            }
+        }
+
+        function reportWindowResize(...args) {
+            n = 0;
+            console.log('reportWindowResize', args)
+        }
+
+        window.onload = function() {
+            addEventListener('resize', debounce(reportWindowResize, 400));
+        }
+    </script>
+    <style>
+        .box {
+            font-family: sans-serif, Arial;
+            font-size: medium;
+            overflow: hidden;
+            resize: both;
+            margin: 1em;
+            padding: 1em;
+            border: 1px gainsboro solid;
+            border-radius: 0.5em;
+        }
+
+        h1 {
+            width: fit-content;
+            padding: 10px;
+            background-color: #4158D0;
+            background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        test for debounce
+        and this is very very very long text widthout any reason, just to demonstrate the resize behaviour.
+    </div>
+    <h1>Koniec debounce - gradient text</h1>
+    
+</body>
+</html>

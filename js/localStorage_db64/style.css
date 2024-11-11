@@ -1,0 +1,110 @@
+
+body {
+    padding: 1em auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: grid;
+    place-content: center;
+}
+
+:where(main,header) {
+    border: solid gray 1px;
+    border-radius: 0.25em;
+    padding: 1em;
+    margin-bottom: 1em;
+    min-width: 800px;
+}
+
+header input {
+    min-width: 20em;
+}
+
+header button {
+    border: 1px solid gray;
+    padding: 0.5em 1em;
+    margin-left: 1em;
+    min-width: 10em;
+    border-radius: 0.25em;
+    cursor: pointer;
+    background-color: white;
+}
+
+header button:hover {
+    outline: 1px solid blue;
+    border: 1px solid gray;
+    background-color: blue;
+    color: whitesmoke;
+    transition: all 0.25s;
+}
+
+@keyframes purchase-anim {
+    0%   { color: yellow; }
+    80%, 100% { color: white; }
+}
+
+.purchase {
+    padding: 1em;
+    background-color: whitesmoke;
+    position: relative;
+    transition: all 1s;
+}
+
+.purchase:hover {
+    background-color: blue;
+    color: white;
+    border-radius: 0.5em;
+    transform: scale(0.95,1.1);
+    z-index: 10;
+    animation: purchase-anim 0.5s;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    background-color: white;
+    border: none;
+    opacity: 0.2;
+}
+
+.purchase:hover .delete-btn {
+    border-radius: 0.25em;
+    cursor: pointer;
+    min-width: 5em;
+    opacity: 1;
+    right: 1em;
+}
+
+@counter-style emojis {
+    system: cyclic;
+    symbols: 🔴 🟠 🟡 🟢 🔵 🟣 ⚫️ 🟤;
+    suffix: ' ';
+}
+
+@counter-style emojis-black {
+    system: cyclic;
+    symbols: ⚪️;
+    suffix: ' ';
+}
+
+ul {
+    padding-left: 0;
+}
+
+ul li {
+    list-style-type: emojis;
+    list-style-position: inside;
+}
+
+ul li:hover {
+    list-style-type: emojis-black;
+}
+
+main {
+    opacity: 1;
+    transition: all 0.5s linear;
+    
+    @starting-style {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+}

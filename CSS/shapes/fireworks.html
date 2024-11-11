@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .trail {
+        stroke-width: 2;
+        stroke-dasharray: 1 10 5 10 10 5 30 150;
+        animation-name: trail;
+        animation-timing-function: ease-out;
+        }
+
+        @keyframes trail {
+        from,
+        20% {
+            stroke-width: 3;
+            stroke-dashoffset: 80;
+        }
+        100%,
+        to {
+            stroke-width: 0.5;
+            stroke-dashoffset: -150;
+        }
+        }       
+        img {
+            width: 100px;
+        } 
+    </style>
+</head>
+<body>
+    <div>
+        Hej!
+    </div>
+    <img class="trail" src="sunset-svgrepo-com.svg" alt="sunset">
+    fireworks
+</body>
+</html>

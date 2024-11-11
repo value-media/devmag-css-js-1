@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+    /**
+    * @param {*} url file 
+    * @param {*} params
+    */
+    const exportFunc = (url, params) => {
+        const form = document.createElement('form')
+        form.style.display = 'none'
+        form.action = url
+        form.method = 'post'
+        document.body.appendChild(form)
+
+        for (const key in params) {
+            const input = document.createElement('input')
+            input.type = 'hidden'
+            input.name = key
+            input.value = params[key]
+            form.appendChild(input)
+        }
+        form.submit()
+        form.remove() //remove form element
+    }  
+
+    function send() {
+        exportFunc('dupa.txt', { dupa: 'blada' });
+        console.log('sent', new Date());
+    }     
+    
+    function customEventBind(ele, eventType, callBack) {
+    if (ele.addEventListener) {
+        ele.addEventListener(eventType, callBack, false)
+    } else if (window.attachEvent) {
+        ele.attachEvent('on' + eventType, callBack)
+    } else {
+        ele['on' + eventType] = callBack;
+    }};
+
+    customEventBind(document, 'click', function(){
+        console.log('The element was clicked')
+    });    
+    </script>
+</head>
+<body>
+    <input type="text" title="file url">
+    <button type="button" title="Wyślij" onclick="send()">Send</button>
+</body>
+</html>

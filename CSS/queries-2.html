@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Verdana;
+        }
+
+        header {
+            padding: 0.25em;
+            display: flex;
+            align-items: center;
+            label { margin-right: 1em; }
+        }
+
+        section {
+            --adj: 3em; 
+            background-color: lightskyblue;
+            color: black;
+            border: solid 1px dimgray;
+            border-radius: 0.25em;
+            font-size: large;
+            place-content: center;
+            display: none;
+        }
+
+        header:has(input[value='100dvh']:checked) ~ .m100dvh,
+        header:has(input[value='100svh']:checked) ~ .m100svh,
+        header:has(input[value='100lvh']:checked) ~ .m100lvh,
+        header:has(input[value='100vh']:checked) ~ .m100vh {
+            display: grid;
+        }
+
+        .m100dvh {
+            height: calc(100dvh - var(--adj)); 
+        }
+
+        .m100svh {
+            height: calc(100svh - var(--adj)); 
+        }
+
+        .m100lvh {
+            height: calc(100lvh - var(--adj)); 
+        }
+
+        .m100vh {
+            height: calc(100vh - var(--adj)); 
+        }   
+    </style>
+</head>
+<body>
+    <header>
+        <input type="radio" name="mode" id="100svh_mode" value="100svh" title="100svh">
+        <label for="100svh_mode">100svh</label>
+        <input type="radio" name="mode" id="100lvh_mode" value="100lvh" title="100lvh">
+        <label for="100lvh_mode">100lvh</label>
+        <input type="radio" name="mode" id="100dvh_mode" value="100dvh" title="100dvh">
+        <label for="100dvh_mode">100dvh</label>
+        <input type="radio" name="mode" id="100vh_mode" value="100vh" title="100vh">
+        <label for="100vh_mode">100vh</label>
+    </header>
+
+    <section class="m100svh">
+        100svh
+    </section>
+    <section class="m100lvh">
+        100lvh
+    </section>
+    <section class="m100dvh">
+        100dvh
+    </section>
+    <section class="m100vh">
+        100vh
+    </section>
+</body>
+</html>
