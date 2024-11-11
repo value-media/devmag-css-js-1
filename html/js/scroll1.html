@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            padding: 2em;
+            border: 1px solid gainsboro;
+            border-radius: 0.5em;
+
+            * {
+                box-sizing: border-box;
+            }
+        }
+        form {
+            width: 30em;
+
+            section {
+                display: flex;
+                flex-direction: column;
+                gap: 10em;
+                margin-bottom: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="submitForm(event)" id="form">
+        <section class="fields">
+            <div>
+                <input type="checkbox" name="chb1" id="checkbox1" checked>
+                <label for="checkbox1">checkbox #1</label>
+            </div>
+            <div>
+                <input type="checkbox" name="checkbox2" id="checkbox2" required >                
+                <label for="checkbox2">checkbox #2</label>                
+            </div>
+            <div>
+                <label for="text1">text #1</label>               
+                <input type="text" name="text1" id="text1" > 
+            </div>
+            <div>
+                <label for="date1">text #1</label>               
+                <input type="date" name="date1" id="date1" > 
+            </div>
+            <div>
+                <label for="number1">number #1</label>               
+                <input type="number" name="number1" id="number1" > 
+            </div>
+            <div>
+                <label for="range1">range #1</label>               
+                <input type="range" name="range1" id="range1" > 
+            </div>
+            <div>
+                <label for="month1">month #1</label>               
+                <input type="month" name="month1" id="month1" > 
+            </div>
+            <div>
+                <label for="week1">week #1</label>               
+                <input type="week" name="week1" id="week1" > 
+            </div>
+            <div>
+                <label for="url1">url #1</label>               
+                <input type="url" name="url1" id="url1" > 
+            </div>
+
+        </section>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        submitForm = (e) => {      
+            e.preventDefault();            
+            const data = new FormData(form).
+                entries().toArray().
+                reduce((obj, [key, value]) => (obj[key] = value, obj), {});
+
+            console.log('submitting', data, form);
+        }
+    </script>
+</body>
+</html>
