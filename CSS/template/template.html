@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!-- https://medium.com/@asierr/10-reasons-why-the-template-tag-is-a-game-changer-for-front-end-developers-b4531926bea4 -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            padding-block: 1em;
+            display: grid;
+            place-content: center;
+            font-family: Roboto, Arial;
+        }
+
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1em;   
+            margin-block: 1em;
+
+            section {
+                border: 1px solid gainsboro;
+                border-radius: 0.5em;
+                padding: 1em 3em;
+                background-color: whitesmoke;
+
+                header {
+                    color: blue;
+                    border-bottom: 1px solid gainsboro;
+                    padding-bottom: 0.25em;
+                    margin-bottom: 1em;
+                }
+            }         
+        }
+        
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1em;   
+            margin-bottom: 1em;
+        }
+
+        [role=alert] {
+            color: red;
+        }
+    </style>
+    <script>
+        function initCustomElements() {
+            class CustomElement extends HTMLElement {
+            constructor() {
+                super();
+                const template = document.getElementById('custom-element-template').content;
+                const shadowRoot = this.attachShadow({ mode: 'open' });
+                shadowRoot.appendChild(template.cloneNode(true));
+            }
+            }
+            customElements.define('custom-element', CustomElement);            
+        }
+
+        function showAlert(message) {
+            const template = document.getElementById('accessible-alert-template');
+            const clone = template.content.cloneNode(true);
+            clone.querySelector('p').textContent = message;
+            document.getElementById('alert-msg').appendChild(clone);
+        }
+
+        let currentStep = 0;
+        const stepList = ['step1-template', 'step2-template', 'step3-template'];
+        function showNextStep() { 
+            if (currentStep < stepList.length) {
+                const template = document.getElementById(stepList[currentStep]);
+                const clone = template.content.cloneNode(true);
+                document.querySelector('#steps').appendChild(clone);
+                currentStep++;
+            }
+        }
+
+        window.addEventListener('load', () => {
+            const ex1 = document.querySelector('#ex1');
+            const template1 = document.getElementById('lazy-load-template');
+            for (let i = 1; i <= 8; i++) {
+                const clone = template1.content.cloneNode(true);
+                clone.querySelector('header').innerText = `${i}. pozycja`; 
+                ex1.appendChild(clone);           
+            }
+
+            const ex2 = document.querySelector('#dynamic-form');
+            const template2 = document.getElementById('input-template');
+            for (let i = 1; i <= 4; i++) {
+                const clone = template2.content.cloneNode(true);
+                ex2.appendChild(clone);           
+            }
+
+            initCustomElements();
+        });        
+    </script>
+</head>
+<body>
+    <main id="ex1"></main>
+    <form id="dynamic-form"></form>
+    <custom-element>Custom element</custom-element>
+    <hr/>
+    <button type="button" onclick="showNextStep()">Dodaj krok</button>
+    <main id="steps"></main>
+    
+    <button type="button" onclick="showAlert('To jest przykładowy alert')">Pokaż alert</button>
+    <main id="alert-msg"></main>
+
+    <template id="lazy-load-template" >
+        <section>
+            <header></header>
+            <div class="lazy-content">This content is loaded later.</div>            
+        </section>
+    </template>  
+
+    <template id="input-template">
+        <div class="form-field">
+            <input type="text" placeholder="Enter value">
+            <button class="remove-field">Remove</button>
+        </div>
+    </template>
+
+    <template id="custom-element-template">
+        <style>
+          .custom-element {
+            background-color: skyblue;
+            color: white;
+            padding: 0.5em 1.5em;
+            border-radius: 1em;
+          }
+        </style>
+        <div class="custom-element">
+          <slot></slot>
+        </div>
+      </template>
+
+      <template id="step1-template">
+        <div class="step">
+          <h2>Step 1</h2>
+          <p>Welcome to the first step.</p>
+        </div>
+      </template>
+      
+      <template id="step2-template">
+        <div class="step">
+          <h2>Step 2</h2>
+          <p>This is the second step.</p>
+        </div>
+      </template>
+      
+      <template id="step3-template">
+        <div class="step">
+          <h2>Step 3</h2>
+          <p>This is the third step.</p>
+        </div>
+      </template>
+
+      <template id="accessible-alert-template">
+        <div role="alert" aria-live="assertive">
+          <p>Important information goes here.</p>
+        </div>
+      </template>
+</body>
+</html>

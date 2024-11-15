@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: 'czcionka';
+            src: url('poppins-regular-webfont.woff2');
+            font-weight: 300 900;
+        }
+        body {
+            font-family: czcionka;
+            display: flex;
+            justify-content: flex-start;
+            padding: 1em;
+        }
+        .container {
+            padding: 2em;
+            border:  5px solid dimgray;
+            border-image-source: linear-gradient(to right, yellow, blue);
+            border-image-slice: 1;
+            border-radius: 0.5em;
+        }
+        .checkbox-1 {
+            font-size: large;
+            display: flex;
+            align-items: center;
+
+            input[type="checkbox"] {
+                appearance: none;
+                border: 1px solid green;
+                width: 1em;
+                height: 1em;
+                margin-inline: 1em;
+                border-radius: 0.25em;
+                position: relative;
+                cursor: pointer;
+
+                & + label {
+                    color: dimgray;
+                    cursor: pointer;
+                }
+
+                &:checked {
+                    &::before {
+                        position: absolute;
+                        border-radius: 0.25em;
+                        top: -0.5em;
+                        left: -0.25em;
+                        color: blue;
+                        
+                        border: 1px solid deepskyblue;
+                        /* outline: solid 1px skyblue; */
+                        background-color: whitesmoke;
+                        content: '✔️';
+                        padding-bottom: 0.25em;
+                        box-shadow: 0 4px 8px currentColor;
+                    }
+
+                    & + label {
+                        color: blue;
+                    }                    
+                }
+            }
+
+
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <section class="checkbox-1">
+            <input type="checkbox" name="chb1" id="chb1">
+            <label for="chb1">opcja 1</label>
+        </section>        
+    </main>
+
+</body>
+</html>

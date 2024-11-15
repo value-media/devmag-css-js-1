@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      body {
+        display: grid;
+        place-content: center;
+        min-height: 60vh;
+      }
+      
+      @property --c {
+        syntax: "<integer>";
+        initial-value: 0;
+        inherits: true;
+      }
+      
+      @keyframes timer {
+        from { --c: 10 }
+        to   { --c: 0 }
+      }
+      
+      :root { animation: timer 10s linear }
+    
+      div::after {
+        counter-reset: c var(--c);
+        content: counter(c, decimal-leading-zero);
+        font-size: x-large;
+      }
+    </style>
+</head>
+<body>
+    <div></div>
+</body>
+</html>

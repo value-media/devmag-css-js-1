@@ -1,6 +1,7 @@
 {
     "type": "module",
     "dependencies": {
+        "@babel/plugin-proposal-decorators": "^7.24.7",
         "axios": "^1.6.3",
         "fs": "^0.0.1-security",
         "jsonwebtoken": "^9.0.2",

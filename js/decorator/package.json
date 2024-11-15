@@ -1,0 +1,14 @@
+{
+  "name": "decorator",
+  "version": "1.0.0",
+  "main": "decorator1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@babel/plugin-proposal-decorators": "^7.24.7"
+  }
+}

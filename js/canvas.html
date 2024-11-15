@@ -1,0 +1,149 @@
+<!-- https://medium.com/@asierr/15-html5-features-you-cant-afford-to-ignore-e9f3d7c968fa -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="200" height="200"></canvas>
+    <script>
+      const canvas = document.getElementById('myCanvas');
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = 'green';
+      ctx.fillRect(10, 10, 150, 100);
+    </script> 
+
+<video controls>
+    <source src="movie.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  
+  <audio controls>
+    <source src="audio.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <div id="drag1" draggable="true" ondragstart="drag(event)">Drag me!</div>
+<div id="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">Drop here</div>
+
+<script>
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+  function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
+
+  function drop(ev) {
+    ev.preventDefault();
+    const data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+  }
+</script>
+
+<form>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="Enter your email" required autofocus>
+    
+
+    <label for="start">Start date:</label>
+    <input type="date" id="start" name="trip-start" value="2024-01-01" min="2024-01-01" max="2024-12-31">
+
+
+
+    <input type="submit" value="Submit">
+  </form>
+  <div>
+    <dfn>Melliflouos</dfn> sound are smooth, musical and pleasant to hear.
+  </div>
+
+  <div>
+    <dialog id="dialog" >
+        <p>
+            Lightings strikes the earth 44 times every second!<br/>
+            Do you want more this kind of messages ?            
+        </p>
+        <form method="dialog">
+            <button type="submit" formmethod="dialog" value="dismiss">Cancel</button>  
+            <button type="submit" id="confirmBtn" value="interested" autofocus>OK</button>    
+        </form>
+    </dialog>
+    <button id="show_dialog">Show something interesting</button>
+    <output></output>
+    <script>
+        const dialog = document.querySelector('#dialog');
+        const button = document.querySelector('#show_dialog');
+        const confirmBtn = dialog.querySelector("#confirmBtn");
+        const outputBox = document.querySelector("output");
+
+        button.addEventListener('click', () => {
+            dialog.showModal();
+        });
+
+        dialog.addEventListener("close", (e) => {
+            outputBox.value =
+                `ReturnValue: ${dialog.returnValue}.`;
+        });
+
+        confirmBtn.addEventListener("click", (event) => {
+            // event.preventDefault(); 
+        });        
+    </script>
+    <style>
+        ::backdrop {
+            background-image: linear-gradient(
+                45deg,
+                whitesmoke,
+                deepskyblue,
+                dodgerblue,
+                gainsboro
+            );
+            opacity: 0.75;
+        }
+        dialog {
+            border-radius: 1em;
+            border-color: deepskyblue;
+        }
+    </style>
+    <div>
+        Shortcuts for <cite>Copy + Paste</cite>  are <kbd>Ctrl + C</kbd> and <kbd>Ctrl + V</kbd>
+    </div>
+  </div>
+  <div>
+    Service Workers
+    <script>
+        self.addEventListener('install', function(event) {
+        event.waitUntil(
+            caches.open('my-cache').then(function(cache) {
+            return cache.addAll([
+                '/',
+                '/canvas.html'
+            ]);
+            })
+        );
+        });
+        ​
+        self.addEventListener('fetch', function(event) {
+        event.respondWith(
+            caches.match(event.request).then(function(response) {
+            return response || fetch(event.request);
+            })
+        );
+        });
+
+    </script>
+  </div>
+  <div>
+    Responsive Image
+    <picture>
+        <source media="(min-width: 800px)" srcset="large.jpg">
+        <source media="(min-width: 400px)" srcset="medium.jpg">
+        <img src="small.jpg" alt="Responsive image">
+    </picture>    
+  </div>
+</body>
+</html>

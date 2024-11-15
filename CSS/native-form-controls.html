@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: grid;
+            place-content: center;
+            min-height: 60vh;
+            gap: 1em;
+        }
+
+        div {
+            position: relative;
+            min-width: 200px;
+        }
+  
+        select {
+            appearance: none;
+            padding: 6px;
+            font-size: 14px;
+            border-radius: 4px;
+            width: 100%;
+            border: 2px solid #ccc; 
+            outline: none;
+        }
+
+        select:focus { border: 2px solid #aaa; }
+
+        div::after {
+            border-right: 6px solid transparent;
+            border-top: 6px solid #333;
+            border-left: 6px solid transparent;
+            position: absolute;
+            top: 42%;
+            right: 12px;
+            content: "";
+            pointer-events: none;
+        }
+
+    .hero {
+        height: calc(40vh - 16px);
+        position: relative;
+        display: grid;
+        place-items: center;
+        color: white;
+        overflow: auto;
+        width: 100%;
+        min-width: 60vw;
+    }
+
+    .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url(https://raw.githubusercontent.com/codezri/static-media/main/unsplash-img1.jpg);
+        background-size: cover;
+        background-position: center;
+        z-index: -1;
+        filter: blur(4px) brightness(0.65) sepia(90%);
+    }
+    </style>
+</head>
+<body>
+    <div>
+        <select title="test">
+            <option>React</option>
+            <option>Angular</option>
+            <option>Svelte</option>
+            <option>Vue</option>
+            <option>Lit</option>
+        </select>
+    </div>    
+    <div class="hero">
+        <h1>Hero section</h1>
+      </div>
+</body>
+</html>
