@@ -1,0 +1,20 @@
+{
+    "dependencies": {
+        "@babel/plugin-proposal-decorators": "^7.24.7",
+        "axios": "^1.6.3",
+        "fs": "^0.0.1-security",
+        "jsonwebtoken": "^9.0.2",
+        "node-cache": "^5.1.2",
+        "node-crypt": "^1.2.0",
+        "nodemailer": "^6.9.7"
+    },
+    "name": "jwt-handler",
+    "version": "1.0.0",
+    "description": "[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/devmag-css-js-1)",
+    "main": "JWTHandler.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC"
+}
