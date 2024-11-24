@@ -88,6 +88,101 @@
                 }
             }
         </style>
+        
+        <details name="t1">
+            <summary>Click to expand</summary>
+            <p>This content can be expanded or collapsed.</p>
+            <article>
+                <pre><code>summary {
+                  display: flex;
+                  justify-content: space-between;
+                }</code></pre>
+            </article>
+        </details>
+        
+        <details name="t1">
+            <summary>Click to expand</summary>
+            <p>This content can be expanded or collapsed.</p>
+            <article>
+                <pre><code>summary {
+                  display: flex;
+                  justify-content: space-between;
+                }</code></pre>
+            </article>
+        </details>
+        <style>
+            details {
+                border-radius: 4px;
+                padding: 0.5em 0.5em 0;
+                cursor: pointer;
+            }
+
+            summary {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+                font-weight: bold;
+                margin: -0.5em -0.5em 0;
+                padding: 0.5em;
+                color: whitesmoke;
+                border-radius: 5px;
+                list-style-position: inside;
+                list-style-type: '⬇ ';
+                background-color: #2196F3;
+
+                &::marker {
+                    color: #0056b3;
+                }
+            }
+            
+
+summary::after {
+  content: '';
+  width: 0; 
+  height: 0; 
+  border-top: 10px solid white;
+  border-inline: 7px solid transparent;
+  /* width: 18px;
+  height: 10px;
+  background: url('https://uploads.sitepoint.com/wp-content/uploads/2023/10/1697699669arrow.svg') no-repeat;
+  background-size: cover; */
+  transition: 0.2s;
+}
+
+details[open] > summary::after {
+  transform: rotate(-180deg);
+}
+
+            details[open] {
+
+                background-color: #e792e7;
+  background-image: linear-gradient(45deg, whitesmoke 0%, #6eb7f1 100%);
+  border-radius: 5px;
+
+                padding: 0.5em;
+                /* background-color: whitesmoke; */
+                cursor: default;
+
+                summary::marker {
+                    color: white;
+                }
+            }            
+            
+
+            details[open] summary {
+                border-radius: 5px 5px 0 0;
+                background-color: #6eb7f1;
+                list-style-type: '⬆ ';
+            }
+
+            article > *:first-child {margin: 0;}
+article > * + * {margin: 0.75em 0 0 0;}
+pre {color: white; background: #443c35; padding: 1em; border-radius: 5px;}
+article {padding: 10px; margin: 0;}
+details code {font-size: 1.1em;}
+        </style>
     </section>
     <section class="card-container">
         <card>10<br>11<br>12<br>10<br>11<br>12<br>10<br>11<br>12<br></card>
@@ -131,6 +226,5 @@
             }
         </style>
     </section>
-
 </body>
 </html>
