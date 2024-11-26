@@ -18,9 +18,6 @@
         <button id="clear-window" title="wyczyść okno czatu" onclick="clearChat()">⚪</button>
     </main>
     
-    <!-- <div id="bottom-row">
-        <button id="btn-clear" onclick="()">Clear</button>
-    </div>   -->
     <div id="msg-row">
         <label for="message">Wiadomość:</label>
         <textarea name="message" id="message" onkeyup="messageKeyUp()"></textarea>
@@ -276,6 +273,7 @@
                 return;
             }
             const message = document.querySelector('#message');
+            if (!message.value) return;
             socket.send(message.value);
             message.value = '';
         }
