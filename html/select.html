@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <label for="car">Wybierz samochód:</label>
+        <select name="car" id="car" onchange="selectCar(event)">
+            <option value="" hidden>wybierz..</option>
+            <optgroup label="Niemieckie">
+                <option value="Porsche 911">Porsche 911</option>
+                <option value="BMW M5">BMW M5</option>
+                <option value="Volkswagen Tirog">VW Tirog</option>
+            </optgroup>
+            <optgroup label="Japońskie">
+                <option value="Toyota Corolla">Toyota Corolla</option>
+                <option value="Suzuki Vitara">Suzuki Vitara</option>
+                <option value="Honda HRV">Honda HRV</option>
+            </optgroup>
+        </select>
+    </header>
+    <main>
+        <message id="msg"></message>
+    </main>
+    <script>
+        showMessage(car.value);
+
+        function selectCar(e) {
+            const { value } = e.target;
+            showMessage(value);
+        }
+
+        function showMessage(selectedCarName) {
+            msg.textContent = selectedCarName;
+        }
+    </script>
+    <style>
+        body {
+            font-family: Lato, sans-serif;
+            font-size: large;
+
+            * {
+                box-sizing: border-box;
+            }
+        }
+        header {
+            margin: 1em;
+        }
+        main {
+            margin: 1em;
+            background-color: beige;
+            border-radius: 1em;
+            min-height: 30dvh;
+            width: auto;
+            display: grid;
+            place-content: center;
+            border: 1px solid deepskyblue;
+        }
+
+        message {
+            display: none;
+            padding: 1em;
+            background-color: white;
+            border-radius: 0.5em;
+            border: 1px gainsboro solid;
+            position: relative;
+
+            &::before {
+                position: absolute;
+                left: 0.5em;
+                top: -1.5em;
+                content: 'Wybrałeś: ';
+                color: gray;
+                font-size: small;
+            }
+
+            &:not(:empty) {
+                display: block;
+            }
+        }
+
+        select {
+            padding: 0.5em;
+            min-width: 20em;
+            border-radius: 0.25em;
+
+        &:focus {
+            border: 1px solid blue;
+        }
+
+        &:active, &:focus-visible, &:focus-within {
+            border: 1px solid green;
+            outline: none;
+        }
+        }
+    </style>
+</body>
+</html>
