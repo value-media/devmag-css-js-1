@@ -41,11 +41,11 @@
                 }
             }
         </style>
-        <script>
+        <script>            
+            const hdr = document.querySelector('header');
             window.addEventListener('scroll', (e) => {
-                const hdr = document.querySelector('header');
                 hdr.dataset.scroll = window.scrollY < 40 ? '' : 'down';
-            })
+            });
         </script>
     </header>
     <section class="s1">
