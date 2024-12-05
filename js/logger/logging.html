@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logging tests</title>
+    <style>
+        body {
+            padding: 2em;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2em;
+        }
+        .message {
+            font-size: large;
+        }
+        button {
+            padding: 1em 2em;
+            border-radius: 0.75em;
+            border: 1px solid white;
+            background-color: whitesmoke;
+            transition: all 0.5s;
+
+            &:hover {
+                background-color: antiquewhite;
+                border: 1px solid gainsboro;
+                cursor: pointer;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="message" id="message"></div>
+        <script>
+            const divMsg = document.querySelector("#message");
+            function print(msg) {
+                divMsg.innerHTML = msg;
+            }
+            function calcMeasure() {
+                print('start')
+                const u1 = { id: 1, name: 'Tom' }, u2 = { id: 2, name: 'Jerry' };
+                console.table([u1, u2])
+
+                const m1 = performance.mark('calcStart');
+                console.time('calc')
+                let x;
+                for(let i = 0; i < 20_000_000; i++) {
+                    x = i+100+(3*100);
+                }
+                const m2 = performance.mark('calcEnd');
+                print('end')
+                console.timeEnd('calc');
+                const m = performance.measure('statystyki', 'calcStart', 'calcEnd');
+
+                console.group('Grupa wiadomości');
+                console.log('measure', m)
+                console.log('wiadomość #1', m1);
+                console.log('wiadomość #2', m2);
+                console.groupEnd();
+
+                console.log('completed');
+            }
+        </script>
+        <button type="button" onclick="calcMeasure()">calculate</button>
+    </section>
+    <section>
+        <script src="debug.js"></script>
+        <script>
+            function testDebug() {
+                return new Promise((res, rej) => {
+                    n = 0;
+                    for (let i = 0; i < 10_000_000; i++) {
+                        n++;
+                    }
+                    res(n);
+                });
+            }
+
+            async function checkDebugKit() {
+               const result = await DebugKit.measureAsync('testowanie', testDebug);
+               console.log('testowanie', result);
+            }
+            
+        </script>
+        <button type="button" onclick="checkDebugKit()">check debug kit</button>
+    </section>
+</body>
+</html>
