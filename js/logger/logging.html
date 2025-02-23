@@ -12,19 +12,23 @@
             flex-direction: column;
             align-items: center;
             gap: 2em;
+            color-scheme: light dark; /* Enabling light mode and dark mode */
+            color: light-dark(#333, #fff); /* Text light and dark colors */
+            background-color: light-dark(#fff, #222); /* Background light and dark colors*/
         }
+
         .message {
             font-size: large;
         }
         button {
             padding: 1em 2em;
             border-radius: 0.75em;
-            border: 1px solid white;
-            background-color: whitesmoke;
+            border: 1px solid light-dark(#333, #fff);
+            background-color: light-dark(#fff, #222);
             transition: all 0.5s;
 
             &:hover {
-                background-color: antiquewhite;
+                background-color: light-dark(gainsboro, gray);
                 border: 1px solid gainsboro;
                 cursor: pointer;
             }
@@ -32,7 +36,7 @@
     </style>
 </head>
 <body>
-    <section>
+    <section style="color-scheme: light;">
         <div class="message" id="message"></div>
         <script>
             const divMsg = document.querySelector("#message");
@@ -64,7 +68,8 @@
                 console.log('completed');
             }
         </script>
-        <button type="button" onclick="calcMeasure()">calculate</button>
+        <button type="button" onclick="calcMeasure()"  
+            > calculate </button>
     </section>
     <section>
         <script src="debug.js"></script>
@@ -86,6 +91,11 @@
             
         </script>
         <button type="button" onclick="checkDebugKit()">check debug kit</button>
+    </section>
+    <section>
+        
+
+        
     </section>
 </body>
 </html>
