@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: sans-serif, Arial, Helvetica;
+            position: relative;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        nav {
+            background-color: darkslategrey;
+            color: whitesmoke;
+            padding: 1em 2em;
+            margin-bottom: 1em;
+            display: flex;
+            gap: 1em;
+
+            a:hover {
+                color: yellowgreen;
+            }
+
+            a:active, a:target {
+                color: lightgreen;
+            }
+
+
+            a:last-child {
+                margin-left: auto;
+            }
+        }
+
+        section {
+            position: relative;
+            display: none;
+            margin: 1em;
+            background: whitesmoke;
+            min-height: 65vh;
+            border-radius: 1em;
+            padding: 1em 1.5em;
+
+            & > a {
+                position: absolute;
+                top: 0.25em;
+                right: 1em;
+                padding: 1em;
+                opacity: 0.75;
+                
+                &:hover {
+                    opacity: 1;
+                }
+            }
+
+            header {
+                color: dimgray;
+                border-bottom: gainsboro 1px solid;
+                padding: 0.5em 1em;
+                margin-bottom: 1em;
+            }
+
+            ul li {
+                line-height: 1.75em;
+
+                &:hover {
+                    color: darkslategrey;
+                    cursor: pointer;
+                }
+            }
+
+        }
+
+        section:target, modal:target {
+            display: block;
+        }
+
+        modal {
+            display: none;
+            position: fixed;
+            top: 30vh; left: 50%;
+            min-width: 40em;
+            transform: translate(-50%, -50%);
+            background-color: whitesmoke;
+            padding: 2em;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border-radius: 0.5em;
+        }
+
+
+        info-message {
+            position: absolute;
+            top: 30vh;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            color: deepskyblue;
+            font-size: x-large;
+            text-shadow: 2px 3px 3px gainsboro;
+        }
+
+        section, modal {            
+            z-index: 10;
+        }
+
+        nav:has(~ section[id=tv]:target) a[href='#tv'],
+        nav:has(~ section[id=watch]:target) a[href='#watch'],
+        nav:has(~ section[id=bike]:target) a[href='#bike'],
+        nav:has(~ section[id=phone]:target) a[href='#phone'] {
+            color: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#tv">Telewizory</a>
+        <a href="#watch">Zegarki</a>
+        <a href="#bike">Rowery</a>
+        <a href="#phone">Telefony</a>
+        <a href="#help">Pomoc</a>
+    </nav>
+    <section id="tv">
+        <header>Telewizory</header> 
+        <ul>
+            <li>Samsung</li>
+            <li>LG</li>
+            <li>Philips</li>
+            <li>Sony</li>
+            <li>Panasonic</li>
+            <li>Sharp</li>
+        </ul>
+        <a href="#">⚫</a>
+    </section>
+    <section id="watch">
+        <header>Zegarki</header> 
+        <ul>
+            <li>Tissot</li>
+            <li>Certina</li>
+            <li>Junghans</li>
+            <li>Seico</li>
+            <li>Casio</li>
+            <li>Swatch</li>
+        </ul>
+        <a href="#">⚫</a>
+    </section>
+    <section id="bike">
+        <header>Rowery</header> 
+        <ul>
+            <li>Giant</li>
+            <li>Orbea</li>
+            <li>Kross</li>
+            <li>Author</li>
+            <li>Felt</li>
+            <li>Lapierre</li>
+        </ul>
+        <a href="#">⚫</a>
+    </section>
+    <section id="phone">
+        <header>Telefony</header> 
+        <ul>
+            <li>Samsung</li>
+            <li>iPhone</li>
+            <li>Motorola</li>
+            <li>Xiaomi</li>
+            <li>TCL</li>
+        </ul>
+        <a href="#">⚫</a>
+    </section>
+    <modal id="help">
+        Przykład nawigacji po stronie bez Javascript.
+    </modal>
+    <info-message>
+        Strona super sklepu, niestety jeszcze w budowie..
+    </info-message>
+</body>
+</html>
