@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>columns</title>
+    <style>
+        body {
+            background: url(http://unsplash.it/1499/1000);
+            background-size: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-family: sans-serif;
+        }
+
+        main {
+            columns: 14em 3;
+            background-color: whitesmoke;
+            min-height: 70vh;
+            align-content: center;
+            margin: 1em;
+            padding-inline: 2em;
+            border-radius: 1em;
+            gap: 3em;
+            /* mix-blend-mode: darken; */
+            mix-blend-mode: soft-light;
+
+            &:hover, &:has(:hover) {
+                background-color: gainsboro;
+            }
+
+            div {
+                min-width: 10em;
+                height: 3em;
+                padding: 1em;
+                background-color: white;
+                color: black;
+                border-radius: 1em;
+                margin-bottom: 2em;
+                align-content: center;
+                text-align: center;
+                transition: all 0.5s;
+                border: 1px gray solid;
+                
+
+                &:hover {
+                    background-color: black;
+                    color: whitesmoke;
+                    border: 1px solid gainsboro;
+                    cursor: pointer;
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div>text #1</div>
+        <div>text #2</div>
+        <div>text #3</div>
+        <div>text #4</div>
+        <div>text #5</div>
+        <div>text #6</div>
+        <div>text #7</div>
+        <div>text #8</div>
+        <div>text #9</div>
+        <div>text #10</div>
+        <div>text #11</div>
+        <div>text #12</div>
+    </main>
+</body>
+</html>
