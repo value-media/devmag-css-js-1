@@ -24,7 +24,9 @@ let processElements, result;
     processElements = (filterFn, mapFn) => compose(filter(filterFn), map(mapFn))(concat);
 }
 
-const doubleIt = x => { console.log('doubling: '+ x); return x*2; };
+const doubleIt = x => { 
+  console.log('doubling: '+ x); return x*2; 
+};
 const isOdd = x => { console.log('is odd: '+ x + ' => ' + !!(x%2)); return x%2; };
 
 console.log('\ninput array: ', array, '\n');
