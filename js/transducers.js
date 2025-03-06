@@ -2,7 +2,8 @@
 
 
 const array = [1, 2, 3, 4, 5];
-let processElements, result;
+let processElementsArray, processElementsSum,
+  resultArray, resultSum;
 
 {
     const map = f => reducing => (result, input) =>
@@ -14,21 +15,27 @@ let processElements, result;
     const concat = (xs, x) => xs.concat(x);
     
     const compose = (...functions) => {
-        return (input) => {
-          return functions.reduceRight((acc, fn) => {
-            return fn(acc);
-          }, input);
-        };
+        return (input) => 
+          functions.reduceRight((acc, fn) => fn(acc), input);
     };
       
-    processElements = (filterFn, mapFn) => compose(filter(filterFn), map(mapFn))(concat);
+    processElementsArray = (filterFn, mapFn) => compose(filter(filterFn), map(mapFn))(concat);
+
+    const sum = (xs, x) => xs + x;
+    processElementsSum = (filterFn, mapFn) => compose(filter(filterFn), map(mapFn))(sum);
 }
 
 const doubleIt = x => { 
   console.log('doubling: '+ x); return x*2; 
 };
-const isOdd = x => { console.log('is odd: '+ x + ' => ' + !!(x%2)); return x%2; };
+
+const isOdd = x => { 
+  console.log('is odd: '+ x + ' => ' + !!(x%2)); return x%2; 
+};
 
 console.log('\ninput array: ', array, '\n');
-result = array.reduce(processElements(isOdd, doubleIt), []);
-console.log('\nresult array:', result, '\n');
+resultArray = array.reduce(processElementsArray(isOdd, doubleIt), []);
+console.log('\nresult array:', resultArray, '\n');
+
+resultSum = array.reduce(processElementsSum(isOdd, doubleIt), 0);
+console.log('\nresult sum:', resultSum, '\n');
