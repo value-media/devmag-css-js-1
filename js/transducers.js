@@ -12,13 +12,13 @@ let processElementsArray, processElementsSum,
     const filter =  predicate => reducing => (result, input) =>
         predicate(input) ? reducing(result, input) : result;
     
-    const concat = (xs, x) => xs.concat(x);
     
     const compose = (...functions) => {
         return (input) => 
           functions.reduceRight((acc, fn) => fn(acc), input);
     };
       
+    const concat = (xs, x) => xs.concat(x);
     processElementsArray = (filterFn, mapFn) => compose(filter(filterFn), map(mapFn))(concat);
 
     const sum = (xs, x) => xs + x;
