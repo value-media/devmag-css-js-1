@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input types</title>
+    <style>
+        body {
+            font-family: sans-serif, Tahoma;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        input {
+            padding: 0.5em 1em;
+            border-radius: 0.75em;
+            outline: none;
+            border: gainsboro solid 1px;
+            min-width: 30em;
+        }
+        
+        input[type="file"]::file-selector-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <form action="#">
+        <section>
+            <input type="color" name="color" id="color" value="#3498DB" title="color">
+        </section>
+        <section>
+            <input type="date" name="date" id="date" title="date" min="2025-02-24" step="7">
+        </section>
+        <section>
+            <input type="datetime-local" title="datetime-local" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}" />
+        </section>
+        <section>
+            <input type="file" name="file" id="file" title="file">
+        </section>
+        <section>
+            <input type="text" name="text" title="text" placeholder="enter text">
+        </section>
+        <section>
+            <input type="tel" name="tel" title="tel" placeholder="enter tel" pattern="(\+48)?[0-9]{3}-?[0-9]{3}-?[0-9]{3}" >
+        </section>
+        <section>
+            <input type="email" pattern="email" title="email" pattern="email" placeholder="email" >
+        </section>
+        <section>
+            <input type="url" name="url" id="url" title="url"  
+            placeholder="https://example.com"
+            pattern="https://.*">
+        </section>
+        <section>
+            <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            placeholder="enter password"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+            title="Must contain at least one number, one lowercase and one uppercase letter, and at least 8 characters" 
+            required
+            >        
+        </section>        
+        <section>
+            <input type="month" id="start" name="start" min="2018-03" value="2018-05" title="month" />
+        </section>
+        <section>
+            <input type="search" id="site-search" name="q" title="search" placeholder="search.." />
+        </section>
+        <section>
+            <input
+                type="week"
+                name="week"
+                id="camp-week"
+                min="2018-W18"
+                max="2018-W26"
+                title="week"
+                required 
+            />
+        </section>
+        <button type="reset">Resetuj</button>
+        <button type="submit">Submit</button>    </form>
+
+</body>
+</html>
