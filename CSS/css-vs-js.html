@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body { 
+            background-color: beige;
+            font-family: sans-serif;
+        }
+
+        section {
+            display: none;
+            padding: 0.5em;
+        }
+
+        section:target {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <main class="submenu">
+        <nav>
+            <ul>
+              <li><a href="#tabs">Tabs</a></li>
+              <li><a href="#scroll-control">Smoth scroll</a></li>
+              <li>
+                <button>Blog ↓</button>
+                <ul>
+                  <li><a href="#news">News</a></li>
+                  <li><a href="#interviews">Interviews</a></li>
+                  <li><a href="#travel">Travel</a></li>
+                  <li><a href="#art">Art</a></li>
+                  <li><a href="#tech">Tech</a></li>
+                </ul>
+              </li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </nav>
+    </main>
+    <style>
+        .submenu {
+            --text-color: dimgray;
+
+            nav {
+                width: 100%;
+                height: 3em;
+
+                & > ul {
+                    display: flex;
+                    gap: 1em;
+                    padding: 0.5em;
+
+                    a {
+                        text-decoration: none;
+                        color: var(--text-color);
+                    }
+
+                    li {
+                        position: relative;
+                        border: 1px gainsboro solid;
+                        border-radius: 0.5em;
+                        padding: 0.25em 1em;
+                        background-color: whitesmoke;
+
+                        &::marker {
+                            content: none;
+                        }
+
+                        button {
+                            background-color: transparent;
+                            outline: none;
+                            border: none;
+                            color: var(--text-color);
+                            cursor: pointer;
+                        }
+                    }
+
+                    ul {
+                        position: absolute;
+                        opacity: 0;
+                        top: 2em;
+                        left: -3em;
+                        visibility: hidden;
+                        transform: translateY(10px);
+                        transition: all 0.3s ease;
+                        marker: none;
+                    }
+
+                    & > li:hover > ul {
+                        opacity: 1;
+                        visibility: visible;
+                        transform: translateY(0);   
+                        cursor: pointer;  
+                        z-index: 10;                   
+                    }
+                }
+            }
+        }        
+    </style>
+
+    <section class="tabs" id="tabs">
+        <input type="radio" id="tab1" name="tabs" checked>
+        <label for="tab1">Tab 1</label>
+        <input type="radio" id="tab2" name="tabs">
+        <label for="tab2">Tab 2</label>
+        <input type="radio" id="tab3" name="tabs">
+        <label for="tab3">Tab 3</label>
+        <div class="tab-content" id="content1">Content for Tab 1</div>
+        <div class="tab-content" id="content2">Content for Tab 2</div>
+        <div class="tab-content" id="content3">Content for Tab 3</div>
+    </section>
+    <style>
+        .tabs {
+            input[type="radio"] {
+               display: none;
+            }
+            label {
+                display: inline-block;
+                padding: 10px;
+                cursor: pointer;
+                background: #eee;
+                border: 1px solid #ccc;
+            }
+            input[type="radio"]:checked + label {
+                position: relative;
+                background: white;
+                font-weight: bold;
+                border-bottom: none;
+                top: 2px;
+            }
+            .tab-content {
+                display: none;
+                padding: 20px;
+                border: 1px solid #ccc;
+                background-color: white;
+            }
+            #tab1:checked ~ #content1,
+            #tab2:checked ~ #content2,
+            #tab3:checked ~ #content3 {
+                display: block;
+            }            
+        }
+    </style>
+
+    <section id="scroll-control">
+        <div class="scroll-container">
+            <div class="scroll-item">Item 1</div>
+            <div class="scroll-item">Item 2</div>
+            <div class="scroll-item">Item 3</div>
+          </div>
+    </section>
+    <style>
+        .scroll-container {
+            overflow-y: scroll;
+            height: 50vh;
+            scroll-snap-type: y mandatory;            
+        }
+        .scroll-item {
+            padding: 1em;
+            scroll-snap-align: start;
+            height: 30vh;
+            background: lightblue;
+            margin: 10px 0;
+        }
+
+    </style>
+</body>
+</html>

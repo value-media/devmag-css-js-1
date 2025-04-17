@@ -1,0 +1,120 @@
+
+<!-- https://levelup.gitconnected.com/html-javascript-custom-events-3cee8ce56166 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+        }
+        fieldset {
+            padding: 1em;
+            border: 1px solid gray;
+            border-radius: 1em;
+        }
+    </style>
+</head>
+<body>
+    <fieldset>
+        <button type="button" id="basicButton">Auto clicked button</button>
+        <div id="basicResult"></div>
+        <div id="testDiv"></div>
+        <script>
+            const button = document.querySelector('#basicButton');
+            const testDiv = document.querySelector('#testDiv');
+            const result = document.querySelector('#basicResult');
+
+            window.addEventListener('load', (e) => {
+                button.addEventListener('autoClick', (e) => {
+                    e.preventDefault();
+                    result.innerHTML = `event from button at ${new Date()}: ` + (e.detail || 'none');
+                });
+                testDiv.addEventListener('autoClick', (e) => {
+                    e.preventDefault();
+                    result.innerHTML += `<br>event from div at ${new Date()}: ` + (e.detail || 'none');                    
+                });
+                
+                const event = new CustomEvent('autoClick', { detail: 'some data'});
+                button.dispatchEvent(event);     
+                testDiv.dispatchEvent(event);           
+            })
+        </script>
+    </fieldset>
+    <fieldset id="input-events">
+        <legend>Nasłuchiwanie wpisywania tesktów</legend>
+        <input id="eventPropInput1" type="text" placeholder="input 1" />
+        <input id="eventPropInput2" type="text" placeholder="input 2" />
+        <input id="eventPropInput3" type="text" placeholder="input 3" />
+        <div id="inputResult" style="min-height: 1em;"></div>
+        <script>
+            const inputEvents = document.querySelector('#input-events');
+            const inputResult = document.querySelector('#inputResult');
+            window.addEventListener('load', () => {
+                const inputs = document.querySelectorAll('#input-events input');
+                [ ...inputs ].forEach((el) => {
+                    el.addEventListener('input', (e) => {
+                        e.target.dispatchEvent(new CustomEvent('input-change', {
+                            bubbles: true,
+                            detail: {
+                                id: e.target.id,
+                                text: e.target.value
+                            }
+                        }));
+                    });
+                });
+                
+                inputEvents.addEventListener('input-change', (e) => {
+                    inputResult.innerHTML = `Input change (${e.detail.id}): ${e.detail.text} `;
+                });
+            });
+        </script>
+    </fieldset>
+    <fieldset id="nbp-request">
+        <legend>Pobieranie kursu NBP dla wpisanej waluty</legend>
+        <div>
+            Wpisz kod waluty: <input id="curr-code" type="text" placeholder="kod waluty">
+        </div>
+        <div id="nbp-result" style="min-height: 1em;margin-block: 1em;color:navy;"></div>
+        <script>
+            const currCode = document.querySelector('#curr-code');
+            const nbpResult = document.querySelector('#nbp-result');
+            window.addEventListener('load', (e) => {
+                document.querySelector('#nbp-request').addEventListener('nbp-rate', (e) => {
+                    e.preventDefault();
+                    const { detail: code } = e;
+                    getCurrencyRate(code);
+                });
+                
+                currCode.addEventListener('input', (e) => {
+                    e.target.dispatchEvent(new CustomEvent('nbp-rate', {
+                        bubbles: true,
+                        detail: e.target.value
+                    }))                    
+                })
+
+            });
+
+            const availableCurrencies = [ 'usd', 'gbp', 'eur' ];
+            async function getCurrencyRate(currencyCode) {
+                let result = '';
+                const code = (currencyCode || '').toLowerCase().trim();
+                if (availableCurrencies.includes(code)) {
+                    const resp = await fetch(`https://api.nbp.pl/api/exchangerates/rates/A/${currencyCode}/last/1/?format=json`);
+                    const { code, currency, rates } = await resp.json();
+                    const [ { effectiveDate, mid: rate, no} ] = rates;
+
+                    nbpResult.innerHTML = `${currency} (${code}) z dnia ${effectiveDate} (${no}): ${rate}`;
+                } else {
+                    nbpResult.innerHTML = '';
+                }
+
+            } 
+        </script>
+    </fieldset>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        Container content
+        <div class="card"> Card content</div>
+    </div>
+    <style>
+        .card-container {
+            container-type: inline-size;
+            font-size: large;
+            color: black;
+        }
+
+        @container(max-width: 400px) {
+            .card {
+                font-size: small;
+                color: blue;
+            }
+        }
+    </style>
+</body>
+</html>
