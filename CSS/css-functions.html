@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS functions</title>
+    <style>
+        @function --dashed-border(--color) {
+            result: 2px dashed var(--color);
+        }
+
+        div {
+            padding: 1em;
+            margin: 1em;
+            border: --dashed-border(blue); /* 2px dashed blue */
+        }
+        @supports (border: --dashed-border()) {
+            .not-supported {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section>
+        Not supported
+    </section>
+    <div>
+  text in border
+    </div>
+</body>
+</html>
